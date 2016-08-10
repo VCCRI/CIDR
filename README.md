@@ -3,7 +3,7 @@
 CIDR - Clustering through Imputation and Dimensionality Reduction
 =================================================================
 
-Fast and accurate clustering through imputation and dimensionality reduction for single cell RNA-Seq data.
+Fast and accurate clustering through imputation and dimensionality reduction for single cell RNA-seq data.
 
 Most existing dimensionality reduction and clustering packages for single cell RNA-Seq (scRNA-Seq) data deal with dropouts by heavy modelling and computational machinery. Here we introduce *CIDR* (Clustering through Imputation and Dimensionality Reduction), an ultrafast algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the impact of dropouts in scRNA-Seq data in a principled manner.
 
@@ -11,16 +11,18 @@ Getting Started
 ---------------
 
 -   Make sure your version of R is at least 3.1.0
--   If you are on the Windows platorm, ensure that [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed
--   install the *devtools* package which will be used to install *CIDR* and its dependencies:
+-   If you are on the Windows platorm, ensure that [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed. Rtools is software (installed external to R) that assists in building R packages, and R itself.
+-   install the CRAN package *devtools* package which will be used to install *CIDR* and its dependencies:
 
 ``` r
+## this is an R command
 install.packages("devtools")
 ```
 
 -   Install the *CIDR* package directly from the Github repository (including any dependencies):
 
 ``` r
+## this is an R command
 devtools::install_github("VCCRI/CIDR")
 ```
 
