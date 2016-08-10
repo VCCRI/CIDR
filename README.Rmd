@@ -1,0 +1,46 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+#CIDR - Clustering through Imputation and Dimensionality Reduction
+
+Fast and accurate clustering through imputation and dimensionality
+reduction for Single Cell RNA-seq data.
+
+Most existing dimensionality reduction and clustering packages for single cell RNA-Seq (scRNA-
+Seq) data deal with dropouts by heavy modelling and computational machinery. Here we in-
+troduce _CIDR_ (Clustering through Imputation and Dimensionality Reduction), an ultrafast
+algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the
+impact of dropouts in scRNA-Seq data in a principled manner.
+
+##Getting Started
+
+* Make sure your version of R is at least 3.1.0
+* If you are on the Windows platorm, ensure that [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed
+* install the _devtools_ package which will be used to install _CIDR_ and its dependencies:
+```{r, eval=F}
+install.packages("devtools")
+```
+
+* Install the _CIDR_ package directly from the Github repository (including any dependencies):
+
+```{r, eval=F}
+devtools::install_github("VCCRI/CIDR")
+```
+
+#Example
+Test the newly installed _CIDR_ package:
+
+```{r}
+library(cidr)
+example("cidr")
+```

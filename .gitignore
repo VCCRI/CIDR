@@ -1,6 +1,7 @@
-**/.Rhistory
-**/.
-**/.Rproj.user
-**/.Rhistory
-**/.o
-**/.so
+*.Rhistory
+*.Rproj.user
+*.Rhistory
+*.o
+*.so
+README*.png
+*.Rproj
