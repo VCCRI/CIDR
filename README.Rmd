@@ -23,7 +23,8 @@ impact of dropouts in scRNA-Seq data in a principled manner.
 ##Getting Started
 
 * Make sure your version of R is at least 3.1.0
-* If you are on the Windows platorm, ensure that [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed. Rtools is software (installed external to R) that assists in building R packages, and R itself.
+* _CIDR_ has been tested primarily on the Linux and Mac platforms.  _CIDR_ has also been tested on the Windows platform - however this requires the use of an external software package _Rtools_.
+* If you are on the Windows platorm, ensure that [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed. Rtools is software (installed external to R) that assists in building R packages, and R itself.  Note that the downlaod for _Rtools_ is in the order of 100M.
 * install the CRAN package _devtools_ package which will be used to install _CIDR_ and its dependencies:
 ```{r, eval=F}
 ## this is an R command
@@ -35,6 +36,9 @@ install.packages("devtools")
 ```{r, eval=F}
 ## this is an R command
 devtools::install_github("VCCRI/CIDR")
+## Note that for some Windows platforms, you may be asked to re-install RTools
+## - even though it may already have been installed.  Say yes if prompted.
+## Your windows platform may require the specific version of RTools being suggested.
 ```
 
 #Example
