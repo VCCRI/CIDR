@@ -3,9 +3,9 @@
 CIDR - Clustering through Imputation and Dimensionality Reduction
 =================================================================
 
-Fast and accurate clustering through imputation and dimensionality reduction for Single Cell RNA-seq data.
+Fast and accurate clustering through imputation and dimensionality reduction for single cell RNA-Seq data.
 
-Most existing dimensionality reduction and clustering packages for single cell RNA-Seq (scRNA- Seq) data deal with dropouts by heavy modelling and computational machinery. Here we in- troduce *CIDR* (Clustering through Imputation and Dimensionality Reduction), an ultrafast algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the impact of dropouts in scRNA-Seq data in a principled manner.
+Most existing dimensionality reduction and clustering packages for single cell RNA-Seq (scRNA-Seq) data deal with dropouts by heavy modelling and computational machinery. Here we introduce *CIDR* (Clustering through Imputation and Dimensionality Reduction), an ultrafast algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the impact of dropouts in scRNA-Seq data in a principled manner.
 
 Getting Started
 ---------------
