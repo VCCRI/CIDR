@@ -10,10 +10,10 @@ Most existing dimensionality reduction and clustering packages for single cell R
 Getting Started
 ---------------
 
--   Make sure your version of R is at least 3.1.0
+-   Make sure your version of R is at least 3.1.0.
 -   *CIDR* has been tested primarily on the Linux and Mac platforms. *CIDR* has also been tested on the Windows platform - however this requires the use of an external software package *Rtools*.
 -   If you are on the Windows platorm, ensure that [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is installed. Rtools is software (installed external to R) that assists in building R packages, and R itself. Note that the downlaod for *Rtools* is in the order of 100M.
--   install the CRAN package *devtools* package which will be used to install *CIDR* and its dependencies:
+-   Install the CRAN package *devtools* package which will be used to install *CIDR* and its dependencies:
 
 ``` r
 ## this is an R command
