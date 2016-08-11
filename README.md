@@ -46,10 +46,13 @@ example("cidr")
 #> 
 #> cidr> sData <- scSimulator(N=N, k=k)
 #> 
+#> cidr> ## tags - the tag matrix
+#> cidr> tags <- as.matrix(sData$tags)
+#> 
 #> cidr> cols <- c(rep("RED",k), rep("BLUE",k), rep("GREEN",k))
 #> 
 #> cidr> ## Standard principal component analysis.
-#> cidr> ltpm <- log2(t(t(sData$tags)/colSums(sData$tags))*1000000+1)
+#> cidr> ltpm <- log2(t(t(tags)/colSums(tags))*1000000+1)
 #> 
 #> cidr> pca <- prcomp(t(ltpm))
 #> 
@@ -60,7 +63,8 @@ example("cidr")
 
     #> 
     #> cidr> ## Use cidr to analyse the simulated dataset.
-    #> cidr> sData <- scDataConstructor(as.matrix(sData$tags))
+    #> cidr> ## The input for cidr should be a tag matrix.
+    #> cidr> sData <- scDataConstructor(tags)
     #> 
     #> cidr> sData <- determineDropoutCandidates(sData)
     #> 

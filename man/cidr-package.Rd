@@ -14,13 +14,16 @@ reduction for single cell RNA-Seq data.
 N=3 ## 3 cell types
 k=50 ## 50 cells per cell type
 sData <- scSimulator(N=N, k=k)
+## tags - the tag matrix
+tags <- as.matrix(sData$tags)
 cols <- c(rep("RED",k), rep("BLUE",k), rep("GREEN",k))
 ## Standard principal component analysis.
-ltpm <- log2(t(t(sData$tags)/colSums(sData$tags))*1000000+1)
+ltpm <- log2(t(t(tags)/colSums(tags))*1000000+1)
 pca <- prcomp(t(ltpm))
 plot(pca$x[,c(1,2)],col=cols,pch=1,xlab="PC1",ylab="PC2",main="prcomp")
 ## Use cidr to analyse the simulated dataset.
-sData <- scDataConstructor(as.matrix(sData$tags))
+## The input for cidr should be a tag matrix.
+sData <- scDataConstructor(tags)
 sData <- determineDropoutCandidates(sData)
 sData <- wThreshold(sData)
 sData <- scDissim(sData)

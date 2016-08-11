@@ -15,13 +15,16 @@
 #' N=3 ## 3 cell types
 #' k=50 ## 50 cells per cell type
 #' sData <- scSimulator(N=N, k=k)
+#' ## tags - the tag matrix
+#' tags <- as.matrix(sData$tags)
 #' cols <- c(rep("RED",k), rep("BLUE",k), rep("GREEN",k))
 #' ## Standard principal component analysis.
-#' ltpm <- log2(t(t(sData$tags)/colSums(sData$tags))*1000000+1)
+#' ltpm <- log2(t(t(tags)/colSums(tags))*1000000+1)
 #' pca <- prcomp(t(ltpm))
 #' plot(pca$x[,c(1,2)],col=cols,pch=1,xlab="PC1",ylab="PC2",main="prcomp")
 #' ## Use cidr to analyse the simulated dataset.
-#' sData <- scDataConstructor(as.matrix(sData$tags))
+#' ## The input for cidr should be a tag matrix.
+#' sData <- scDataConstructor(tags)
 #' sData <- determineDropoutCandidates(sData)
 #' sData <- wThreshold(sData)
 #' sData <- scDissim(sData)
@@ -89,7 +92,7 @@ setClass("scData", representation(tags="matrix",
 #' Properties of the class include scalar, vector and matrix
 #' data types necessary for the CIDR analysis - such as gene counts, library
 #' sizes, thresholds, dropouts, and clustering data.  Raw counts are converted
-#'  to log2 per million, normalised by dividing each gene count for a
+#' to log2 per million, normalised by dividing each gene count for a
 #' particular cell by the total count for all genes in that cell.
 #'
 #' @param tags a matrix of tags where the rows crrespond to features (genes, transcripts, etc) and the columns correspond to cells
@@ -100,8 +103,10 @@ setClass("scData", representation(tags="matrix",
 #' N=3 ## 3 cell types
 #' k=50 ## 50 cells per cell type
 #' sData <- scSimulator(N=N, k=k)
+#' ## The input for cidr should be a tag matrix. 
+#' tags <- as.matrix(sData$tags)
 #' ## create a new scData object
-#' sData <- scDataConstructor(as.matrix(sData$tags))
+#' sData <- scDataConstructor(tags)
 #' ## print the first 5 library sizes
 #' sData@librarySizes[1:5]
 #' ## print a portion of the data matrix of the class - contains raw tags

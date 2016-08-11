@@ -20,7 +20,7 @@ Creates an object whose type represents a single cell dataset class.
 Properties of the class include scalar, vector and matrix
 data types necessary for the CIDR analysis - such as gene counts, library
 sizes, thresholds, dropouts, and clustering data.  Raw counts are converted
- to log2 per million, normalised by dividing each gene count for a
+to log2 per million, normalised by dividing each gene count for a
 particular cell by the total count for all genes in that cell.
 }
 \examples{
@@ -28,8 +28,10 @@ particular cell by the total count for all genes in that cell.
 N=3 ## 3 cell types
 k=50 ## 50 cells per cell type
 sData <- scSimulator(N=N, k=k)
+## The input for cidr should be a tag matrix. 
+tags <- as.matrix(sData$tags)
 ## create a new scData object
-sData <- scDataConstructor(as.matrix(sData$tags))
+sData <- scDataConstructor(tags)
 ## print the first 5 library sizes
 sData@librarySizes[1:5]
 ## print a portion of the data matrix of the class - contains raw tags
