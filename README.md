@@ -7,6 +7,8 @@ Fast and accurate clustering through imputation and dimensionality reduction for
 
 Most existing dimensionality reduction and clustering packages for single cell RNA-Seq (scRNA-Seq) data deal with dropouts by heavy modelling and computational machinery. Here we introduce *CIDR* (Clustering through Imputation and Dimensionality Reduction), an ultrafast algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the impact of dropouts in scRNA-Seq data in a principled manner.
 
+For more details about *CIDR* refer to the [unpublished preprint](http://biorxiv.org/content/early/2016/08/10/068775) on BioRxiv.
+
 Getting Started
 ---------------
 
@@ -30,8 +32,11 @@ devtools::install_github("VCCRI/CIDR")
 ## Your windows platform may require the specific version of RTools being suggested.
 ```
 
-Example
-=======
+Examples
+========
+
+Simulated Data
+--------------
 
 Test the newly installed *CIDR* package:
 
@@ -46,13 +51,10 @@ example("cidr")
 #> 
 #> cidr> sData <- scSimulator(N=N, k=k)
 #> 
-#> cidr> ## tags - the tag matrix
-#> cidr> tags <- as.matrix(sData$tags)
-#> 
 #> cidr> cols <- c(rep("RED",k), rep("BLUE",k), rep("GREEN",k))
 #> 
 #> cidr> ## Standard principal component analysis.
-#> cidr> ltpm <- log2(t(t(tags)/colSums(tags))*1000000+1)
+#> cidr> ltpm <- log2(t(t(sData$tags)/colSums(sData$tags))*1000000+1)
 #> 
 #> cidr> pca <- prcomp(t(ltpm))
 #> 
@@ -63,8 +65,7 @@ example("cidr")
 
     #> 
     #> cidr> ## Use cidr to analyse the simulated dataset.
-    #> cidr> ## The input for cidr should be a tag matrix.
-    #> cidr> sData <- scDataConstructor(tags)
+    #> cidr> sData <- scDataConstructor(as.matrix(sData$tags))
     #> 
     #> cidr> sData <- determineDropoutCandidates(sData)
     #> 
@@ -118,3 +119,26 @@ example("cidr")
     #> cidr> 
     #> cidr> 
     #> cidr>
+
+Biological Datasets
+-------------------
+
+Further examples of applying *CIDR* using real biological datasets can be found at this [Github repository](https://github.com/VCCRI/CIDR-examples). The name of the repository is *CIDR-examples*.
+
+Clicking on the *Clone or Download* button in the Github repository for *CIDR-examples* will enable the user to download a zip file containing the raw biological data and the R files for the examples. The user can then extract the files and run the provided R examples.
+
+### Human Brain scRNA-Seq Dataset
+
+*CIDR-examples* contains a human brain single-cell RNA-Seq dataset, located in the *Brain* folder. In this dataset there are 420 cells in 8 cell types after we exclude hybrid cells.
+
+Reference for human brain dataset:
+
+Darmanis, S. *et al.* A survey of human brain transcriptome diversity at the single cell level. *Proceedings of the National Academy of Sciences* 112, 7285–7290 (2015).
+
+### Human Pancreatic Islet scRNA-Seq Dataset
+
+*CIDR-examples* contains a human pancreatic islet single-cell RNA-Seq dataset, located in the *PancreaticIslet* folder. In this dataset there are 60 cells in 6 cell types after we exclude undefined cells and bulk RNA-Seq samples.
+
+Reference for human pancreatic islet dataset:
+
+Li, J. *et al.* Single-cell transcriptomes reveal characteristic features of human pancreatic islet cell types. *EMBO Reports* 17, 178–187 (2016).

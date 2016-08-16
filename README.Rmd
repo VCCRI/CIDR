@@ -20,6 +20,8 @@ Most existing dimensionality reduction and clustering packages for single cell R
 algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the
 impact of dropouts in scRNA-Seq data in a principled manner.
 
+For more details about _CIDR_ refer to the [preprint](http://biorxiv.org/content/early/2016/08/10/068775) on BioRxiv.
+
 ##Getting Started
 
 * Make sure your version of R is at least 3.1.0.
@@ -41,10 +43,34 @@ devtools::install_github("VCCRI/CIDR")
 ## Your windows platform may require the specific version of RTools being suggested.
 ```
 
-#Example
+#Examples
+##Simulated Data
 Test the newly installed _CIDR_ package:
 
 ```{r}
 library(cidr)
 example("cidr")
 ```
+
+##Biological Datasets
+Further examples of applying _CIDR_ using real biological datasets can be found at this [Github repository](https://github.com/VCCRI/CIDR-examples).  The name of the repository is _CIDR-examples_. 
+
+Clicking on the _Clone or Download_ button in the Github repository for _CIDR-examples_ will enable the user to download a zip file containing the raw biological data and the R files for the examples.  The user can then extract the files and run the provided R examples.
+
+###Human Brain scRNA-Seq Dataset
+_CIDR-examples_ contains a human brain single-cell RNA-Seq dataset, located in the _Brain_ folder. In this dataset
+there are 420 cells in 8 cell types after we exclude hybrid cells.  
+
+Reference for human brain dataset:
+
+Darmanis, S. _et al._ A survey of human brain transcriptome diversity at the single cell level.
+_Proceedings of the National Academy of Sciences_ 112, 7285–7290 (2015).
+
+###Human Pancreatic Islet scRNA-Seq Dataset
+_CIDR-examples_ contains a human pancreatic islet single-cell RNA-Seq dataset, located in the _PancreaticIslet_ folder. In this dataset there are 60 cells in 6 cell types after we exclude undefined cells and bulk RNA-Seq samples.  
+
+Reference for human pancreatic islet dataset:
+
+Li, J. _et al._ Single-cell transcriptomes reveal characteristic features of human pancreatic islet
+cell types. _EMBO Reports_ 17, 178–187 (2016).
+
