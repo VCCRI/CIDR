@@ -180,9 +180,10 @@ setMethod("determineDropoutCandidates", "scData", function(object, min1, min2, N
     }
     object@dropoutCandidates <- t(t(object@nData) < object@dThreshold)
     delete <- which(rowSums(object@dropoutCandidates)==object@sampleSize)
-    object@nData <- object@nData[-delete,]
-    object@dropoutCandidates <- object@dropoutCandidates[-delete,]
-
+    if(length(delete)>0){
+        object@nData <- object@nData[-delete,]
+        object@dropoutCandidates <- object@dropoutCandidates[-delete,]
+    }
     return(object)
 })
 
