@@ -2,6 +2,7 @@
 
 export(adjustedRandIndex)
 export(cidrPcoa)
+export(hclust)
 export(scDataConstructor)
 export(scSimulator)
 exportMethods(determineDropoutCandidates)
@@ -16,4 +17,5 @@ importFrom(ade4,cailliez)
 importFrom(clusterCrit,intCriteria)
 importFrom(mclust,adjustedRandIndex)
 importFrom(minpack.lm,nlsLM)
+importFrom(stats,hclust)
 useDynLib(cidr)

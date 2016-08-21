@@ -364,8 +364,10 @@ setGeneric("scCluster", function(object, n=object@nPC*2+2) {
 #'
 #' @param object the scData class object
 #' @param n Calinski-Harabasz Index is used to decide which number between 2 and n is optimal as the number of clusters.
-#'
+#' 
+#' @importFrom stats hclust
 #' @import NbClust
+#' @export hclust
 #' @export
 #'
 #' @return an updated scData class object with the following attributes updates
