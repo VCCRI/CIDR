@@ -51,10 +51,13 @@ example("cidr")
 #> 
 #> cidr> sData <- scSimulator(N=N, k=k)
 #> 
+#> cidr> ## tags - the tag matrix
+#> cidr> tags <- as.matrix(sData$tags)
+#> 
 #> cidr> cols <- c(rep("RED",k), rep("BLUE",k), rep("GREEN",k))
 #> 
 #> cidr> ## Standard principal component analysis.
-#> cidr> ltpm <- log2(t(t(sData$tags)/colSums(sData$tags))*1000000+1)
+#> cidr> ltpm <- log2(t(t(tags)/colSums(tags))*1000000+1)
 #> 
 #> cidr> pca <- prcomp(t(ltpm))
 #> 
@@ -65,7 +68,8 @@ example("cidr")
 
     #> 
     #> cidr> ## Use cidr to analyse the simulated dataset.
-    #> cidr> sData <- scDataConstructor(as.matrix(sData$tags))
+    #> cidr> ## The input for cidr should be a tag matrix.
+    #> cidr> sData <- scDataConstructor(tags)
     #> 
     #> cidr> sData <- determineDropoutCandidates(sData)
     #> 
@@ -142,3 +146,8 @@ Darmanis, S. *et al.* A survey of human brain transcriptome diversity at the sin
 Reference for human pancreatic islet dataset:
 
 Li, J. *et al.* Single-cell transcriptomes reveal characteristic features of human pancreatic islet cell types. *EMBO Reports* 17, 178–187 (2016).
+
+Troubleshooting
+---------------
+
+*CIDR* utilises the *hclust* function from the base *stats* package. Loading *CIDR* masks *hclust* in other packages automatically. However, if any package with an *hclust* function (e.g., *flashClust*) is loaded after *CIDR*, the name clashing can possibly cause a problem. In this case unloading that package should resolve the issue.

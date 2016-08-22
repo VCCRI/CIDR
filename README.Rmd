@@ -74,3 +74,7 @@ Reference for human pancreatic islet dataset:
 Li, J. _et al._ Single-cell transcriptomes reveal characteristic features of human pancreatic islet
 cell types. _EMBO Reports_ 17, 178–187 (2016).
 
+##Troubleshooting
+_CIDR_ utilises the _hclust_ function from the base _stats_ package.  Loading _CIDR_ masks _hclust_ in other packages automatically. 
+However, if any package with an _hclust_ function (e.g., _flashClust_) is loaded after _CIDR_, the name clashing can possibly cause a problem.
+In this case unloading that package should resolve the issue.
