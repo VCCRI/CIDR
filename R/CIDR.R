@@ -350,7 +350,7 @@ setMethod("nCluster", "scData", function(object, n){
          bty="l")
 })
 
-setGeneric("scCluster", function(object, n=object@nPC*2+2) {
+setGeneric("scCluster", function(object, n=0, nCluster=0) {
     standardGeneric("scCluster")
 })
 
@@ -363,7 +363,8 @@ setGeneric("scCluster", function(object, n=object@nPC*2+2) {
 #' @name scCluster
 #'
 #' @param object the scData class object
-#' @param n Calinski-Harabasz Index is used to decide which number between 2 and n is optimal as the number of clusters.
+#' @param n Calinski-Harabasz Index is used to decide which number between 2 and n is optimal as the number of clusters. User should not assign both n and nCluster.
+#' @param nCluster number of clusters. User should not assign both n and nCluster.
 #' 
 #' @importFrom stats hclust
 #' @import NbClust
@@ -377,16 +378,23 @@ setGeneric("scCluster", function(object, n=object@nPC*2+2) {
 #'
 #' @examples
 #' example(cidr)
-setMethod("scCluster", "scData", function(object, n){
+setMethod("scCluster", "scData", function(object, n, nCluster){
     exp_clustering <- object@PC[, c(1:object@nPC)]
-    if(object@nCluster == 0){
+    if (n!=0 & nCluster !=0) {
+        stop("Invalid input: user should not assign both n and nCluster.")
+    } else if (n!= 0){
         y <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc = n)
         object@nCluster <- y$Best.nc[1]
         object@clusters <- y$Best.partition
-    } else {
+    } else if (nCluster !=0) {
+        object@nCluster <- nCluster
         y <- hclust(dist(exp_clustering), method=object@cMethod)
         clusters <- cutree(y, k=object@nCluster)
         object@clusters <- clusters
+    } else {
+        y <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc = object@nPC*2+2)
+        object@nCluster <- y$Best.nc[1]
+        object@clusters <- y$Best.partition
     }
     return(object)
 })

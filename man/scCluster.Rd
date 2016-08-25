@@ -5,12 +5,14 @@
 \alias{scCluster}
 \title{Sincle Cell Clustering}
 \usage{
-\S4method{scCluster}{scData}(object, n = object@nPC * 2 + 2)
+\S4method{scCluster}{scData}(object, n = 0, nCluster = 0)
 }
 \arguments{
 \item{object}{the scData class object}
 
-\item{n}{Calinski-Harabasz Index is used to decide which number between 2 and n is optimal as the number of clusters.}
+\item{n}{Calinski-Harabasz Index is used to decide which number between 2 and n is optimal as the number of clusters. User should not assign both n and nCluster.}
+
+\item{nCluster}{number of clusters. User should not assign both n and nCluster.}
 }
 \value{
 an updated scData class object with the following attributes updates
