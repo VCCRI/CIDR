@@ -44,6 +44,8 @@ Test the newly installed *CIDR* package:
 library(cidr)
 example("cidr")
 #> 
+#> cidr> par(ask=FALSE)
+#> 
 #> cidr> ## Generate simulated single cell RNA-Seq tags.
 #> cidr> N=3 ## 3 cell types
 #> 
@@ -106,9 +108,7 @@ example("cidr")
     #> 
     #> cidr> ## 0.79
     #> cidr> ## Alter the number of PCs used in the clustering.
-    #> cidr> sData@nPC <- 2
-    #> 
-    #> cidr> sData <- scCluster(sData)
+    #> cidr> sData <- scCluster(sData, nPC=2)
     #> 
     #> cidr> plot(sData@PC[,c(1,2)], col=cols,
     #> cidr+      pch=sData@clusters,main="CIDR",xlab="PC1", ylab="PC2")
