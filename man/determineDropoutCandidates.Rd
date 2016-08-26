@@ -6,7 +6,7 @@
 \title{Determine Dropout Candidates}
 \usage{
 \S4method{determineDropoutCandidates}{scData}(object, min1 = 3, min2 = 8,
-  N = 2000, alpha = 0.1, fast = TRUE)
+  N = 2000, alpha = 0.1, fast = TRUE, zerosOnly = FALSE)
 }
 \arguments{
 \item{object}{the scData class object}
@@ -17,9 +17,11 @@
 
 \item{N}{number of cells to consider when determining the threshold value for dropout candidates; used in conjunction with the \code{fast} parameter}
 
-\item{alpha}{a cutoff quantile in the range [0,1].  Thresholds outside this will be adjusted to the quantile boundary.}
+\item{alpha}{a cutoff quantile in the range [0,1]. Thresholds outside this will be adjusted to the quantile boundary.}
 
 \item{fast}{boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N}
+
+\item{zerosOnly}{boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.}
 }
 \value{
 an updated scData class object with the following attributes updated

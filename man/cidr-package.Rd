@@ -10,6 +10,7 @@ Fast and accurate clustering through imputation and dimensionality
 reduction for single cell RNA-Seq data.
 }
 \examples{
+par(ask=FALSE)
 ## Generate simulated single cell RNA-Seq tags.
 N=3 ## 3 cell types
 k=50 ## 50 cells per cell type
@@ -38,8 +39,7 @@ plot(sData@PC[,c(1,2)], col=cols,
 adjustedRandIndex(sData@clusters,cols)
 ## 0.79
 ## Alter the number of PCs used in the clustering.
-sData@nPC <- 2
-sData <- scCluster(sData)
+sData <- scCluster(sData, nPC=2)
 plot(sData@PC[,c(1,2)], col=cols,
      pch=sData@clusters,main="CIDR",xlab="PC1", ylab="PC2")
 adjustedRandIndex(sData@clusters,cols)

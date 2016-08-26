@@ -5,12 +5,14 @@
 \alias{nCluster}
 \title{nCluster}
 \usage{
-\S4method{nCluster}{scData}(object, n = object@nPC * 2 + 2)
+\S4method{nCluster}{scData}(object, n = NULL, nPC = 4)
 }
 \arguments{
 \item{object}{the scData class object}
 
-\item{n}{maximum number of clusters}
+\item{n}{maximum number of clusters; if \code{NULL} (default), it is set to be nPC*2+2}
+
+\item{nPC}{the number of PCs used in clustering; by default 4}
 }
 \description{
 outputs the Calinski-Harabasz Index versus number of clusters plot.

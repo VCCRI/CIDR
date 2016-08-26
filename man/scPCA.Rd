@@ -16,7 +16,6 @@ an updated scData class object with the following attributes updated
 \item{eigenvalues}{all eigenvalues (positive and negative) output by the principal coordinates analysis}
 \item{PC}{principal coordinates}
 \item{variation}{proportion of variation explained by each of the principal coordinates}
-\item{nPC}{the number of principal coordinates used in the clustering}
 }
 \description{
 performs principal coordinates analysis on the \emph{CIDR} dissimilarity matrix
