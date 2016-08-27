@@ -7,11 +7,11 @@
 \title{Clustering through Imputation and Dimensionality Reduction}
 \description{
 Fast and accurate clustering through imputation and dimensionality
-reduction for single cell RNA-Seq data.
+reduction for single-cell RNA-Seq data.
 }
 \examples{
 par(ask=FALSE)
-## Generate simulated single cell RNA-Seq tags.
+## Generate simulated single-cell RNA-Seq tags.
 N=3 ## 3 cell types
 k=50 ## 50 cells per cell type
 sData <- scSimulator(N=N, k=k)

@@ -25,16 +25,16 @@
 an updated scData class object with the following attributes updated
 
 \item{dThreshold}{a vector of library dependent dropout candidate thresholds}
-\item{dropoutCandidates}{a matrix with the same dimension as nData. The value is \code{True} for an individual entry if it
-is a dropout candidate, otherwise the value is \code{false}.}
+\item{dropoutCandidates}{a matrix with the same dimension as nData. The value is \code{TRUE} for an entry if it
+is a dropout candidate; otherwise the value is \code{FALSE}.}
 }
 \description{
-determines which entries in a single cell RNA-Seq dataset are potentially dropouts.
+determines which entries in a single-cell RNA-Seq dataset are dropout candidates.
 }
 \details{
-populates a truth matrix with the same dimension as the nData.
-The value is \code{True} for an individual entry if it
-is a dropout candidate, otherwise the value is \code{false}.
+populates a truth matrix with the same dimension as nData.
+The value is \code{TRUE} for an entry if it
+is a dropout candidate; otherwise the value is \code{FALSE}.
 }
 \examples{
 example(cidr)

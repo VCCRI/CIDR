@@ -3,7 +3,7 @@
 \docType{methods}
 \name{scPCA}
 \alias{scPCA}
-\title{Single Cell Principal Coordinates Analysis}
+\title{Single-cell Principal Coordinates Analysis}
 \usage{
 \S4method{scPCA}{scData}(object)
 }

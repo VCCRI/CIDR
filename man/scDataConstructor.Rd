@@ -16,15 +16,13 @@ an scData class object
 \code{scDataConstructor} creates a new scData class object from a tag table.
 }
 \details{
-Creates an object whose type represents a single cell dataset class.
-Properties of the class include scalar, vector and matrix
-data types necessary for the CIDR analysis - such as gene counts, library
-sizes, thresholds, dropouts, and clustering data.  Raw counts are converted
-to log2 per million, normalised by dividing each gene count for a
-particular cell by the total count for all genes in that cell.
+Creates an object whose type represents a single-cell RNA-Seq dataset class.
+Attributes of the class include scalar, vector and matrix
+data types necessary for the CIDR analysis - such as tag table, library
+sizes, dropout candidates, imputation weighting threshold.
 }
 \examples{
-## Generate simulated single cell RNA-Seq tags.
+## Generate simulated single-cell RNA-Seq tags.
 N=3 ## 3 cell types
 k=50 ## 50 cells per cell type
 sData <- scSimulator(N=N, k=k)

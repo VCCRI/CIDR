@@ -1,7 +1,7 @@
 #' @title Clustering through Imputation and Dimensionality Reduction
 #'
 #' @description Fast and accurate clustering through imputation and dimensionality
-#' reduction for single cell RNA-Seq data.
+#' reduction for single-cell RNA-Seq data.
 #'
 #' @author Peijie Lin <P.Lin@victorchang.edu.au>, Michael Troup
 #'
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' par(ask=FALSE)
-#' ## Generate simulated single cell RNA-Seq tags.
+#' ## Generate simulated single-cell RNA-Seq tags.
 #' N=3 ## 3 cell types
 #' k=50 ## 50 cells per cell type
 #' sData <- scSimulator(N=N, k=k)
@@ -59,7 +59,7 @@ NULL
 #'
 #' Chris Fraley and Adrian E. Raftery (2002) Model-based Clustering, Discriminant Analysis and Density Estimation Journal of the American Statistical Association 97:611-631
 
-## class scData - single cell data object with properties releveant to
+## class scData - single-cell RNA-Seq data object with attributes relevant to
 ## clustering through imputation and dimensionality reduction
 setClass("scData", representation(tags="matrix",
                                   sampleSize="numeric",
@@ -88,18 +88,16 @@ setClass("scData", representation(tags="matrix",
 #' \code{scDataConstructor} creates a new scData class object from a tag table.
 #'
 #' @details
-#' Creates an object whose type represents a single cell dataset class.
-#' Properties of the class include scalar, vector and matrix
-#' data types necessary for the CIDR analysis - such as gene counts, library
-#' sizes, thresholds, dropouts, and clustering data.  Raw counts are converted
-#' to log2 per million, normalised by dividing each gene count for a
-#' particular cell by the total count for all genes in that cell.
+#' Creates an object whose type represents a single-cell RNA-Seq dataset class.
+#' Attributes of the class include scalar, vector and matrix
+#' data types necessary for the CIDR analysis - such as tag table, library
+#' sizes, dropout candidates, imputation weighting threshold. 
 #'
 #' @param tags a matrix of tags where the rows crrespond to features (genes, transcripts, etc) and the columns correspond to cells
 #' @export
 #' @return an scData class object
 #' @examples
-#' ## Generate simulated single cell RNA-Seq tags.
+#' ## Generate simulated single-cell RNA-Seq tags.
 #' N=3 ## 3 cell types
 #' k=50 ## 50 cells per cell type
 #' sData <- scSimulator(N=N, k=k)
@@ -132,12 +130,12 @@ setGeneric("determineDropoutCandidates", function(object, min1=3, min2=8, N=2000
 #' @name determineDropoutCandidates
 #'
 #' @description
-#' determines which entries in a single cell RNA-Seq dataset are potentially dropouts.
+#' determines which entries in a single-cell RNA-Seq dataset are dropout candidates.
 #'
 #' @details
-#' populates a truth matrix with the same dimension as the nData.
-#' The value is \code{True} for an individual entry if it
-#' is a dropout candidate, otherwise the value is \code{false}.
+#' populates a truth matrix with the same dimension as nData.
+#' The value is \code{TRUE} for an entry if it
+#' is a dropout candidate; otherwise the value is \code{FALSE}.
 #'
 #' @param object the scData class object
 #' @param min1,min2 technical parameters used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell
@@ -149,8 +147,8 @@ setGeneric("determineDropoutCandidates", function(object, min1=3, min2=8, N=2000
 #' @return an updated scData class object with the following attributes updated
 #'
 #' \item{dThreshold}{a vector of library dependent dropout candidate thresholds}
-#' \item{dropoutCandidates}{a matrix with the same dimension as nData. The value is \code{True} for an individual entry if it
-#' is a dropout candidate, otherwise the value is \code{false}.}
+#' \item{dropoutCandidates}{a matrix with the same dimension as nData. The value is \code{TRUE} for an entry if it
+#' is a dropout candidate; otherwise the value is \code{FALSE}.}
 #' @examples
 #' example(cidr)
 setMethod("determineDropoutCandidates", "scData", function(object, min1, min2, N, alpha, fast, zerosOnly){
@@ -285,7 +283,7 @@ setGeneric("scPCA", function(object) {
     standardGeneric("scPCA")
 })
 
-#' @title Single Cell Principal Coordinates Analysis
+#' @title Single-cell Principal Coordinates Analysis
 #'
 #' @description
 #' performs principal coordinates analysis on the \emph{CIDR} dissimilarity matrix
