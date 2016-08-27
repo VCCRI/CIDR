@@ -3,9 +3,9 @@
 CIDR - Clustering through Imputation and Dimensionality Reduction
 =================================================================
 
-Fast and accurate clustering through imputation and dimensionality reduction for single cell RNA-seq data.
+Ultrafast and accurate clustering through imputation and dimensionality reduction for single-cell RNA-seq data.
 
-Most existing dimensionality reduction and clustering packages for single cell RNA-Seq (scRNA-Seq) data deal with dropouts by heavy modelling and computational machinery. Here we introduce *CIDR* (Clustering through Imputation and Dimensionality Reduction), an ultrafast algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the impact of dropouts in scRNA-Seq data in a principled manner.
+Most existing dimensionality reduction and clustering packages for single-cell RNA-Seq (scRNA-Seq) data deal with dropouts by heavy modelling and computational machinery. Here we introduce *CIDR* (Clustering through Imputation and Dimensionality Reduction), an ultrafast algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the impact of dropouts in scRNA-Seq data in a principled manner.
 
 For more details about *CIDR* refer to the [preprint](http://biorxiv.org/content/early/2016/08/10/068775) on BioRxiv.
 
@@ -46,7 +46,7 @@ example("cidr")
 #> 
 #> cidr> par(ask=FALSE)
 #> 
-#> cidr> ## Generate simulated single cell RNA-Seq tags.
+#> cidr> ## Generate simulated single-cell RNA-Seq tags.
 #> cidr> N=3 ## 3 cell types
 #> 
 #> cidr> k=50 ## 50 cells per cell type
@@ -135,7 +135,7 @@ Clicking on the *Clone or Download* button in the Github repository for *CIDR-ex
 
 *CIDR-examples* contains a human brain single-cell RNA-Seq dataset, located in the *Brain* folder. In this dataset there are 420 cells in 8 cell types after we exclude hybrid cells.
 
-Reference for human brain dataset:
+Reference for the human brain dataset:
 
 Darmanis, S. *et al.* A survey of human brain transcriptome diversity at the single cell level. *Proceedings of the National Academy of Sciences* 112, 7285–7290 (2015).
 
@@ -143,7 +143,7 @@ Darmanis, S. *et al.* A survey of human brain transcriptome diversity at the sin
 
 *CIDR-examples* contains a human pancreatic islet single-cell RNA-Seq dataset, located in the *PancreaticIslet* folder. In this dataset there are 60 cells in 6 cell types after we exclude undefined cells and bulk RNA-Seq samples.
 
-Reference for human pancreatic islet dataset:
+Reference for the human pancreatic islet dataset:
 
 Li, J. *et al.* Single-cell transcriptomes reveal characteristic features of human pancreatic islet cell types. *EMBO Reports* 17, 178–187 (2016).
 

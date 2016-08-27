@@ -1,7 +1,7 @@
 Package: cidr
 Type: Package
 Title: Clustering through Imputation and Dimensionality Reduction
-Version: 0.1.0
+Version: 0.1.4
 Author: Peijie Lin, Michael Troup
 Maintainer: Peijie Lin <P.Lin@victorchang.edu.au>
 Description: Fast and accurate clustering through imputation and dimensionality
