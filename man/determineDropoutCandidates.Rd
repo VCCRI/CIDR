@@ -11,9 +11,7 @@
 \arguments{
 \item{object}{the scData class object}
 
-\item{min1}{technical parameter used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell}
-
-\item{min2}{technical parameter used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell}
+\item{min1, min2}{technical parameters used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell}
 
 \item{N}{number of cells to consider when determining the threshold value for dropout candidates; used in conjunction with the \code{fast} parameter}
 

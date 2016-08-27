@@ -140,8 +140,7 @@ setGeneric("determineDropoutCandidates", function(object, min1=3, min2=8, N=2000
 #' is a dropout candidate, otherwise the value is \code{false}.
 #'
 #' @param object the scData class object
-#' @param min1 technical parameter used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell
-#' @param min2 technical parameter used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell
+#' @param min1,min2 technical parameters used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell
 #' @param alpha a cutoff quantile in the range [0,1]. Thresholds outside this will be adjusted to the quantile boundary.
 #' @param N number of cells to consider when determining the threshold value for dropout candidates; used in conjunction with the \code{fast} parameter
 #' @param fast boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N
