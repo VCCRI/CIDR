@@ -150,4 +150,20 @@ Li, J. *et al.* Single-cell transcriptomes reveal characteristic features of hum
 Troubleshooting
 ---------------
 
+### Masking of package *hclust*
+
 *CIDR* utilises the *hclust* function from the base *stats* package. Loading *CIDR* masks *hclust* in other packages automatically. However, if any package with an *hclust* function (e.g., *flashClust*) is loaded after *CIDR*, the name clashing can possibly cause a problem. In this case unloading that package should resolve the issue.
+
+### Reinstallation of *CIDR* - cidr.rdb corruption
+
+In some cases when installing a new version of *CIDR* on top of an existing version may result in the following error message:
+
+`Error in fetch(key) : lazy-load database '/Library/Frameworks/R.framework/Versions/3.3/Resources/library/cidr/help/cidr.rdb' is corrupt`
+
+In this case, one way to resolve this issue is to reinstall the *devtools* package:
+
+``` r
+install.packages("devtools")
+## Click “Yes” in “Updating Loaded Packages”
+devtools::install_github("VCCRI/CIDR",force=TRUE)
+```

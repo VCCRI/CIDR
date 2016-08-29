@@ -363,7 +363,7 @@ setGeneric("scCluster", function(object, n=NULL, nCluster=NULL, nPC=4) {
     standardGeneric("scCluster")
 })
 
-#' @title Sincle Cell Clustering
+#' @title Single-cell Clustering
 #'
 #' @description
 #' performs heirarchical clustering based on \emph{CIDR} principal coordinates.
