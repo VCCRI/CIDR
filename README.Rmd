@@ -53,7 +53,7 @@ example("cidr")
 ```
 
 ##Biological Datasets
-Further examples of applying _CIDR_ using real biological datasets can be found at this [Github repository](https://github.com/VCCRI/CIDR-examples).  The name of the repository is _CIDR-examples_. 
+Examples of applying _CIDR_ to real biological datasets can be found at this [Github repository](https://github.com/VCCRI/CIDR-examples).  The name of the repository is _CIDR-examples_. 
 
 Clicking on the _Clone or Download_ button in the Github repository for _CIDR-examples_ will enable the user to download a zip file containing the raw biological data and the R files for the examples.  The user can then extract the files and run the provided R examples.
 
@@ -75,7 +75,7 @@ Li, J. _et al._ Single-cell transcriptomes reveal characteristic features of hum
 cell types. _EMBO Reports_ 17, 178–187 (2016).
 
 ##Troubleshooting
-###Masking of package _hclust_
+###Masking of _hclust_
 _CIDR_ utilises the _hclust_ function from the base _stats_ package.  Loading _CIDR_ masks _hclust_ in other packages automatically. 
 However, if any package with an _hclust_ function (e.g., _flashClust_) is loaded after _CIDR_, the name clashing can possibly cause a problem.
 In this case unloading that package should resolve the issue.
