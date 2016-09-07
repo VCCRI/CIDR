@@ -2,13 +2,13 @@
 
 ## function for simulating RNA-Seq Data
 
-#' @title Single Cell RNA-Seq Tags Simulator
+#' @title Single-cell RNA-Seq Tags Simulator
 #'
 #' @rdname scSimulator
 #' @name scSimulator
 #'
 #' @description
-#' simulates a table of tags generated from a single cell RNA-Seq experiment.
+#' simulates a table of tags generated from a single-cell RNA-Seq experiment.
 #'
 ##@details
 #'
@@ -19,10 +19,10 @@
 #' @param k the number of cells in each cell type.
 #' @param seed for reproducibility.
 #' @param logmean mean of distrubution for each library.
-#' @param logsd st dev of distribution for each library.
+#' @param logsd standard deviation of distribution for each library.
 #' @param v dropout level parameter; higher v means a higher level of dropouts.
 #' @export
-#' @return a list object is returned containing the following components:
+#' @return a list object is returned containing the following components
 #'
 #' \item{annotation}{0 means a real zero; 1 means a non-zero entry; 2 means a dropout.  Note that a dropout may still have a small value.}
 #' \item{expectedValues}{underlying real expression of the entry.}

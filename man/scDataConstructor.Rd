@@ -7,16 +7,16 @@
 scDataConstructor(tags)
 }
 \arguments{
-\item{tags}{a matrix of tags where the rows crrespond to features (genes, transcripts, etc) and the columns correspond to cells}
+\item{tags}{a matrix of tags where the rows crrespond to features (genes, transcripts, etc) and the columns correspond to cells.}
 }
 \value{
-an scData class object
+an scData class object.
 }
 \description{
 \code{scDataConstructor} creates a new scData class object from a tag table.
 }
 \details{
-Creates an object whose type represents a single-cell RNA-Seq dataset class.
+Creates an object in scData (single-cell RNA-Seq dataset) class.
 Attributes of the class include scalar, vector and matrix
 data types necessary for the CIDR analysis - such as tag table, library
 sizes, dropout candidates, imputation weighting threshold.

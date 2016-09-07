@@ -2,7 +2,7 @@
 % Please edit documentation in R/scSimulator.R
 \name{scSimulator}
 \alias{scSimulator}
-\title{Single Cell RNA-Seq Tags Simulator}
+\title{Single-cell RNA-Seq Tags Simulator}
 \usage{
 scSimulator(N = 3, nDG = 150, nMK = 10, nNDG = 20000, k = 50,
   seed = 17, logmean = 5.25, logsd = 1, v = 9.2)
@@ -20,12 +20,12 @@ scSimulator(N = 3, nDG = 150, nMK = 10, nNDG = 20000, k = 50,
 
 \item{logmean}{mean of distrubution for each library.}
 
-\item{logsd}{st dev of distribution for each library.}
+\item{logsd}{standard deviation of distribution for each library.}
 
 \item{v}{dropout level parameter; higher v means a higher level of dropouts.}
 }
 \value{
-a list object is returned containing the following components:
+a list object is returned containing the following components
 
 \item{annotation}{0 means a real zero; 1 means a non-zero entry; 2 means a dropout.  Note that a dropout may still have a small value.}
 \item{expectedValues}{underlying real expression of the entry.}
@@ -33,7 +33,7 @@ a list object is returned containing the following components:
 \item{tags}{the simulated tags after simulation of both dropouts and noise.}
 }
 \description{
-simulates a table of tags generated from a single cell RNA-Seq experiment.
+simulates a table of tags generated from a single-cell RNA-Seq experiment.
 }
 \examples{
 ## Generate simulated tags with default parameters: 3 cell types and 50 cells in each cell type.

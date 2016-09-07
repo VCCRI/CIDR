@@ -8,17 +8,17 @@
 \S4method{scPCA}{scData}(object)
 }
 \arguments{
-\item{object}{the scData class object}
+\item{object}{an scData class object.}
 }
 \value{
 an updated scData class object with the following attributes updated
 
-\item{eigenvalues}{all eigenvalues (positive and negative) output by the principal coordinates analysis}
-\item{PC}{principal coordinates}
-\item{variation}{proportion of variation explained by each of the principal coordinates}
+\item{eigenvalues}{all eigenvalues (positive and negative) output by the principal coordinates analysis.}
+\item{PC}{principal coordinates.}
+\item{variation}{proportion of variation explained by each of the principal coordinates.}
 }
 \description{
-performs principal coordinates analysis on the \emph{CIDR} dissimilarity matrix
+performs principal coordinates analysis on the \emph{CIDR} dissimilarity matrix.
 }
 \examples{
 example(cidr)

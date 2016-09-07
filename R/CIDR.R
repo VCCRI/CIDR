@@ -39,7 +39,7 @@
 #' ## Use Adjusted Rand Index to measure the accuracy of the clustering output by cidr.
 #' adjustedRandIndex(sData@clusters,cols)
 #' ## 0.79
-#' ## Alter the number of PCs used in the clustering.
+#' ## Alter the number of PCs used in clustering.
 #' sData <- scCluster(sData, nPC=2)
 #' plot(sData@PC[,c(1,2)], col=cols,
 #'      pch=sData@clusters,main="CIDR",xlab="PC1", ylab="PC2")
@@ -88,14 +88,14 @@ setClass("scData", representation(tags="matrix",
 #' \code{scDataConstructor} creates a new scData class object from a tag table.
 #'
 #' @details
-#' Creates an object whose type represents a single-cell RNA-Seq dataset class.
+#' Creates an object in scData (single-cell RNA-Seq dataset) class.
 #' Attributes of the class include scalar, vector and matrix
 #' data types necessary for the CIDR analysis - such as tag table, library
 #' sizes, dropout candidates, imputation weighting threshold. 
 #'
-#' @param tags a matrix of tags where the rows crrespond to features (genes, transcripts, etc) and the columns correspond to cells
+#' @param tags a matrix of tags where the rows crrespond to features (genes, transcripts, etc) and the columns correspond to cells.
 #' @export
-#' @return an scData class object
+#' @return an scData class object.
 #' @examples
 #' ## Generate simulated single-cell RNA-Seq tags.
 #' N=3 ## 3 cell types
@@ -133,20 +133,20 @@ setGeneric("determineDropoutCandidates", function(object, min1=3, min2=8, N=2000
 #' determines which entries in a single-cell RNA-Seq dataset are dropout candidates.
 #'
 #' @details
-#' populates a truth matrix with the same dimension as nData.
+#' populates a Boolean matrix with the same dimension as nData.
 #' The value is \code{TRUE} for an entry if it
 #' is a dropout candidate; otherwise the value is \code{FALSE}.
 #'
-#' @param object the scData class object
-#' @param min1,min2 technical parameters used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell
+#' @param object the scData class object.
+#' @param min1,min2 technical parameters used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell.
 #' @param alpha a cutoff quantile in the range [0,1]. Thresholds outside this will be adjusted to the quantile boundary.
-#' @param N number of cells to consider when determining the threshold value for dropout candidates; used in conjunction with the \code{fast} parameter
-#' @param fast boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N
-#' @param zerosOnly boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.
+#' @param N number of cells to consider when determining the threshold value for dropout candidates; used in conjunction with the \code{fast} parameter.
+#' @param fast Boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N.
+#' @param zerosOnly Boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.
 #' @export
 #' @return an updated scData class object with the following attributes updated
 #'
-#' \item{dThreshold}{a vector of library dependent dropout candidate thresholds}
+#' \item{dThreshold}{a vector of library dependent dropout candidate thresholds.}
 #' \item{dropoutCandidates}{a matrix with the same dimension as nData. The value is \code{TRUE} for an entry if it
 #' is a dropout candidate; otherwise the value is \code{FALSE}.}
 #' @examples
@@ -197,15 +197,15 @@ setGeneric("wThreshold", function(object, cutoff=0.5){
 #' @rdname wThreshold
 #' @name wThreshold
 #'
-#' @param object the scData class object
-#' @param cutoff parameter in the range (0,1), used in the calculation of imputation weighting threshold
+#' @param object an scData class object.
+#' @param cutoff parameter in the range (0,1), used in the calculation of imputation weighting threshold.
 #'
 #' @importFrom minpack.lm nlsLM
 #' @export
 #'
 #' @return an updated scData class object with the following attribute updated
 #'
-#' \item{wThreshold}{imputation weighting threshold}
+#' \item{wThreshold}{imputation weighting threshold.}
 #'
 #' @examples
 #' example(cidr)
@@ -252,8 +252,8 @@ setGeneric("scDissim", function(object, correction=FALSE) {
 #' @rdname scDissim
 #' @name scDissim
 #'
-#' @param object the scData class object
-#' @param correction boolean; if \code{TRUE} apply Cailliez correction
+#' @param object an scData class object.
+#' @param correction Boolean; if \code{TRUE}, Cailliez correction is applied; by default \code{FALSE}.
 #'
 #' @importFrom Rcpp evalCpp
 #' @importFrom ade4 cailliez
@@ -261,7 +261,7 @@ setGeneric("scDissim", function(object, correction=FALSE) {
 #'
 #' @return an updated scData class object with the following attribute updated
 #'
-#' \item{dissim}{the \emph{CIDR} dissimilarity matrix}
+#' \item{dissim}{the \emph{CIDR} dissimilarity matrix.}
 #'
 #' @examples
 #' example(cidr)
@@ -286,20 +286,20 @@ setGeneric("scPCA", function(object) {
 #' @title Single-cell Principal Coordinates Analysis
 #'
 #' @description
-#' performs principal coordinates analysis on the \emph{CIDR} dissimilarity matrix
+#' performs principal coordinates analysis on the \emph{CIDR} dissimilarity matrix.
 #'
 #' @rdname scPCA
 #' @name scPCA
 #'
-#' @param object the scData class object
+#' @param object an scData class object.
 #'
 #' @export
 #'
 #' @return an updated scData class object with the following attributes updated
 #'
-#' \item{eigenvalues}{all eigenvalues (positive and negative) output by the principal coordinates analysis}
-#' \item{PC}{principal coordinates}
-#' \item{variation}{proportion of variation explained by each of the principal coordinates}
+#' \item{eigenvalues}{all eigenvalues (positive and negative) output by the principal coordinates analysis.}
+#' \item{PC}{principal coordinates.}
+#' \item{variation}{proportion of variation explained by each of the principal coordinates.}
 #'
 #' @examples
 #' example(cidr)
@@ -328,14 +328,14 @@ setGeneric("nCluster", function(object, n=NULL, nPC=4) {
 #' @name nCluster
 #'
 #' @details
-#' this method outputs the Calinski-Harabasz Index versus number of clusters plot,
+#' outputs the Calinski-Harabasz Index versus number of clusters plot,
 #' useful for deciding the number of clusters.
 #' Since \emph{CIDR} automatically decides the number of clusters,
 #' this method is optional and only used if the user wants to alter the default number of clusters.
 #'
-#' @param object the scData class object
-#' @param nPC the number of PCs used in clustering; by default 4
-#' @param n maximum number of clusters; if \code{NULL} (default), it is set to be nPC*2+2
+#' @param object an scData class object.
+#' @param nPC the number of PCs used in clustering; by default 4.
+#' @param n maximum number of clusters; if \code{NULL} (default), it is set to be nPC*2+2.
 #'
 #' @importFrom clusterCrit intCriteria
 #' @export
@@ -371,8 +371,8 @@ setGeneric("scCluster", function(object, n=NULL, nCluster=NULL, nPC=4) {
 #' @rdname scCluster
 #' @name scCluster
 #'
-#' @param object the scData class object
-#' @param nPC the number of PCs used in clustering; by default 4
+#' @param object an scData class object.
+#' @param nPC the number of PCs used in clustering; by default 4.
 #' @param n Calinski-Harabasz Index is used to decide which number between 2 and n is optimal as the number of clusters; if \code{NULL} (default), it is set to be nPC*2+2. User should not assign both n and nCluster.
 #' @param nCluster the number of clusters; if \code{NULL} (default), it is determined automatically. User should not assign both n and nCluster.
 #' 
@@ -381,11 +381,11 @@ setGeneric("scCluster", function(object, n=NULL, nCluster=NULL, nPC=4) {
 #' @export hclust
 #' @export
 #'
-#' @return an updated scData class object with the following attributes updates
+#' @return an updated scData class object with the following attributes updated
 #'
-#' \item{nCluster}{the number of clusters}
-#' \item{nPC}{the number of PCs used in clustering}
-#' \item{clusters}{a vector assigning each cell to a cluster}
+#' \item{nCluster}{the number of clusters.}
+#' \item{nPC}{the number of PCs used in clustering.}
+#' \item{clusters}{a vector assigning each cell to a cluster.}
 #'
 #' @examples
 #' example(cidr)

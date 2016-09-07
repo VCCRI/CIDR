@@ -3,20 +3,20 @@
 #' @rdname cidrPcoa
 #' @name cidrPcoa
 #'
-#' @description Performs principal coordinates analysis on a dissimilarity matrix.
+#' @description performs principal coordinates analysis on a dissimilarity matrix.
 #'
 #' @details
 #' This function is used internally in the method \code{scPCA};
-#' see the help page of \code{scPCA} for more details.
+#' see the help page for \code{scPCA} for more details.
 #'
 #' This function is a modified version of the \emph{pcoa} function from the CRAN
 #' package \emph{ape (version 3.5)}.  The function was modified on 6th August 2016.
 #'
 #'
-#' @param D a dissimilarity matrix
+#' @param D a dissimilarity matrix.
 #'
 #' @return This function is used internally in the method \code{scPCA};
-#' see the help page of \code{scPCA} for more details.
+#' see the help page for \code{scPCA} for more details.
 #'
 #' @references
 #' Paradis E., Claude J. & Strimmer K. 2004. APE: analyses of phylogenetics and evolution in R language. Bioinformatics 20: 289-290.

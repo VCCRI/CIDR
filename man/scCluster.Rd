@@ -8,20 +8,20 @@
 \S4method{scCluster}{scData}(object, n = NULL, nCluster = NULL, nPC = 4)
 }
 \arguments{
-\item{object}{the scData class object}
+\item{object}{an scData class object.}
 
 \item{n}{Calinski-Harabasz Index is used to decide which number between 2 and n is optimal as the number of clusters; if \code{NULL} (default), it is set to be nPC*2+2. User should not assign both n and nCluster.}
 
 \item{nCluster}{the number of clusters; if \code{NULL} (default), it is determined automatically. User should not assign both n and nCluster.}
 
-\item{nPC}{the number of PCs used in clustering; by default 4}
+\item{nPC}{the number of PCs used in clustering; by default 4.}
 }
 \value{
-an updated scData class object with the following attributes updates
+an updated scData class object with the following attributes updated
 
-\item{nCluster}{the number of clusters}
-\item{nPC}{the number of PCs used in clustering}
-\item{clusters}{a vector assigning each cell to a cluster}
+\item{nCluster}{the number of clusters.}
+\item{nPC}{the number of PCs used in clustering.}
+\item{clusters}{a vector assigning each cell to a cluster.}
 }
 \description{
 performs heirarchical clustering based on \emph{CIDR} principal coordinates.

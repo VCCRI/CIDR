@@ -8,17 +8,17 @@
 \S4method{nCluster}{scData}(object, n = NULL, nPC = 4)
 }
 \arguments{
-\item{object}{the scData class object}
+\item{object}{an scData class object.}
 
-\item{n}{maximum number of clusters; if \code{NULL} (default), it is set to be nPC*2+2}
+\item{n}{maximum number of clusters; if \code{NULL} (default), it is set to be nPC*2+2.}
 
-\item{nPC}{the number of PCs used in clustering; by default 4}
+\item{nPC}{the number of PCs used in clustering; by default 4.}
 }
 \description{
 outputs the Calinski-Harabasz Index versus number of clusters plot.
 }
 \details{
-this method outputs the Calinski-Harabasz Index versus number of clusters plot,
+outputs the Calinski-Harabasz Index versus number of clusters plot,
 useful for deciding the number of clusters.
 Since \emph{CIDR} automatically decides the number of clusters,
 this method is optional and only used if the user wants to alter the default number of clusters.

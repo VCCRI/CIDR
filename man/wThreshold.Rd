@@ -8,14 +8,14 @@
 \S4method{wThreshold}{scData}(object, cutoff = 0.5)
 }
 \arguments{
-\item{object}{the scData class object}
+\item{object}{an scData class object.}
 
-\item{cutoff}{parameter in the range (0,1), used in the calculation of imputation weighting threshold}
+\item{cutoff}{parameter in the range (0,1), used in the calculation of imputation weighting threshold.}
 }
 \value{
 an updated scData class object with the following attribute updated
 
-\item{wThreshold}{imputation weighting threshold}
+\item{wThreshold}{imputation weighting threshold.}
 }
 \description{
 determines the imputation weighting threshold.

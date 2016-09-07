@@ -8,14 +8,14 @@
 \S4method{scDissim}{scData}(object, correction = FALSE)
 }
 \arguments{
-\item{object}{the scData class object}
+\item{object}{an scData class object.}
 
-\item{correction}{boolean; if \code{TRUE} apply Cailliez correction}
+\item{correction}{Boolean; if \code{TRUE}, Cailliez correction is applied; by default \code{FALSE}.}
 }
 \value{
 an updated scData class object with the following attribute updated
 
-\item{dissim}{the \emph{CIDR} dissimilarity matrix}
+\item{dissim}{the \emph{CIDR} dissimilarity matrix.}
 }
 \description{
 computes the \emph{CIDR} dissimilarity matrix.

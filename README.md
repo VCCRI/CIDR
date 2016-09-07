@@ -107,7 +107,7 @@ example("cidr")
     #> [1] 0.7895042
     #> 
     #> cidr> ## 0.79
-    #> cidr> ## Alter the number of PCs used in the clustering.
+    #> cidr> ## Alter the number of PCs used in clustering.
     #> cidr> sData <- scCluster(sData, nPC=2)
     #> 
     #> cidr> plot(sData@PC[,c(1,2)], col=cols,

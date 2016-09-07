@@ -9,22 +9,22 @@
   N = 2000, alpha = 0.1, fast = TRUE, zerosOnly = FALSE)
 }
 \arguments{
-\item{object}{the scData class object}
+\item{object}{the scData class object.}
 
-\item{min1, min2}{technical parameters used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell}
+\item{min1, min2}{technical parameters used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell.}
 
-\item{N}{number of cells to consider when determining the threshold value for dropout candidates; used in conjunction with the \code{fast} parameter}
+\item{N}{number of cells to consider when determining the threshold value for dropout candidates; used in conjunction with the \code{fast} parameter.}
 
 \item{alpha}{a cutoff quantile in the range [0,1]. Thresholds outside this will be adjusted to the quantile boundary.}
 
-\item{fast}{boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N}
+\item{fast}{Boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N.}
 
-\item{zerosOnly}{boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.}
+\item{zerosOnly}{Boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.}
 }
 \value{
 an updated scData class object with the following attributes updated
 
-\item{dThreshold}{a vector of library dependent dropout candidate thresholds}
+\item{dThreshold}{a vector of library dependent dropout candidate thresholds.}
 \item{dropoutCandidates}{a matrix with the same dimension as nData. The value is \code{TRUE} for an entry if it
 is a dropout candidate; otherwise the value is \code{FALSE}.}
 }
@@ -32,7 +32,7 @@ is a dropout candidate; otherwise the value is \code{FALSE}.}
 determines which entries in a single-cell RNA-Seq dataset are dropout candidates.
 }
 \details{
-populates a truth matrix with the same dimension as nData.
+populates a Boolean matrix with the same dimension as nData.
 The value is \code{TRUE} for an entry if it
 is a dropout candidate; otherwise the value is \code{FALSE}.
 }
