@@ -9,6 +9,8 @@ Most existing dimensionality reduction and clustering packages for single-cell R
 
 For more details about *CIDR* refer to the [preprint](http://biorxiv.org/content/early/2016/08/10/068775) on BioRxiv.
 
+*CIDR* is maintained by Dr Paul Lin <p.lin@victorchang.edu.au>.
+
 Getting Started
 ---------------
 
@@ -107,7 +109,7 @@ example("cidr")
     #> [1] 0.7895042
     #> 
     #> cidr> ## 0.79
-    #> cidr> ## Alter the number of PCs used in clustering.
+    #> cidr> ## Alter the number of PCs used in the clustering.
     #> cidr> sData <- scCluster(sData, nPC=2)
     #> 
     #> cidr> plot(sData@PC[,c(1,2)], col=cols,
