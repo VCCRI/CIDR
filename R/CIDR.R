@@ -120,7 +120,7 @@ scDataConstructor <- function(tags){
     return(object)
 }
 
-setGeneric("determineDropoutCandidates", function(object, min1=3, min2=8, N=2000, alpha=0.1, fast=TRUE, zerosOnly=FALSE){
+setGeneric("determineDropoutCandidates", function(object, min1=3, min2=8, N=2000, alpha=0.1, fast=TRUE, zerosOnly=FALSE, bw_adjust=1){
     standardGeneric("determineDropoutCandidates")
 })
 
@@ -143,6 +143,7 @@ setGeneric("determineDropoutCandidates", function(object, min1=3, min2=8, N=2000
 #' @param N number of cells to consider when determining the threshold value for dropout candidates; used in conjunction with the \code{fast} parameter.
 #' @param fast Boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N.
 #' @param zerosOnly Boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.
+#' @param bw_adjust adjustment factor for bandwidth ; by default \code{1} - no adjustment ; CIDR utilises the \code{density} function from the R base package \code{stats} ; bandwidth is set to \code{nrd0}
 #' @export
 #' @return an updated scData class object with the following attributes updated
 #'
@@ -151,7 +152,7 @@ setGeneric("determineDropoutCandidates", function(object, min1=3, min2=8, N=2000
 #' is a dropout candidate; otherwise the value is \code{FALSE}.}
 #' @examples
 #' example(cidr)
-setMethod("determineDropoutCandidates", "scData", function(object, min1, min2, N, alpha, fast, zerosOnly){
+setMethod("determineDropoutCandidates", "scData", function(object, min1, min2, N, alpha, fast, zerosOnly, bw_adjust){
     if(zerosOnly){
         object@dThreshold <- log2(rep(1, object@sampleSize)/object@librarySizes*1000000+object@priorTPM)
         object@dropoutCandidates <- (object@tags==0)
@@ -167,9 +168,9 @@ setMethod("determineDropoutCandidates", "scData", function(object, min1, min2, N
         LT2 <- log2(rep(min2, N)/object@librarySizes[topLibraries]*1000000+object@priorTPM)
         object@dropoutCandidates <- array(NA, dim=dim(object@nData))
         for(i in 1:N){
-            dfn_m <- density(object@nData[, topLibraries[i]], kernel="epanechnikov", n=1024, from=LT2[i])
+            dfn_m <- density(object@nData[, topLibraries[i]], kernel="epanechnikov", n=1024, from=LT2[i], adjust=bw_adjust)
             dfn_max <- dfn_m$x[which.max(dfn_m$y)]
-            dfn <- density(object@nData[, topLibraries[i]], kernel="epanechnikov", n=1024, from=LT1[i], to=dfn_max)
+            dfn <- density(object@nData[, topLibraries[i]], kernel="epanechnikov", n=1024, from=LT1[i], to=dfn_max, adjust=bw_adjust)
             dTs[i] <- dfn$x[which.min(dfn$y)]
         }
         if(fast & (object@sampleSize>N)){

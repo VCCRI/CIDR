@@ -6,7 +6,8 @@
 \title{Determine Dropout Candidates}
 \usage{
 \S4method{determineDropoutCandidates}{scData}(object, min1 = 3, min2 = 8,
-  N = 2000, alpha = 0.1, fast = TRUE, zerosOnly = FALSE)
+  N = 2000, alpha = 0.1, fast = TRUE, zerosOnly = FALSE,
+  bw_adjust = 1)
 }
 \arguments{
 \item{object}{the scData class object.}
@@ -20,6 +21,8 @@
 \item{fast}{Boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N.}
 
 \item{zerosOnly}{Boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.}
+
+\item{bw_adjust}{adjustment factor for bandwidth ; by default \code{1} - no adjustment ; CIDR utilises the \code{density} function from the R base package \code{stats} ; bandwidth is set to \code{nrd0}}
 }
 \value{
 an updated scData class object with the following attributes updated
