@@ -22,7 +22,7 @@
 
 \item{zerosOnly}{Boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.}
 
-\item{bw_adjust}{adjustment factor for bandwidth ; by default \code{1} - no adjustment ; CIDR utilises the \code{density} function from the R base package \code{stats} ; bandwidth is set to \code{nrd0}}
+\item{bw_adjust}{bandwidth adjustment factor; \emph{CIDR} uses the default bandwidth selection method ‘nrd0’ in the kernel density estimation; see \code{stats::density} help page for more details.}
 }
 \value{
 an updated scData class object with the following attributes updated

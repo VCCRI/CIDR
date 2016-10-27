@@ -88,9 +88,9 @@ setClass("scData", representation(tags="matrix",
 #' \code{scDataConstructor} creates a new scData class object from a tag table.
 #'
 #' @details
-#' Creates an object in scData (single-cell RNA-Seq dataset) class.
+#' creates an object in scData (single-cell RNA-Seq dataset) class.
 #' Attributes of the class include scalar, vector and matrix
-#' data types necessary for the CIDR analysis - such as tag table, library
+#' data types necessary for the \emph{CIDR} analysis - such as tag table, library
 #' sizes, dropout candidates, imputation weighting threshold. 
 #'
 #' @param tags a matrix of tags where the rows crrespond to features (genes, transcripts, etc) and the columns correspond to cells.
@@ -143,7 +143,7 @@ setGeneric("determineDropoutCandidates", function(object, min1=3, min2=8, N=2000
 #' @param N number of cells to consider when determining the threshold value for dropout candidates; used in conjunction with the \code{fast} parameter.
 #' @param fast Boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N.
 #' @param zerosOnly Boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.
-#' @param bw_adjust adjustment factor for bandwidth ; by default \code{1} - no adjustment ; CIDR utilises the \code{density} function from the R base package \code{stats} ; bandwidth is set to \code{nrd0}
+#' @param bw_adjust bandwidth adjustment factor; \emph{CIDR} uses the default bandwidth selection method ‘nrd0’ in the kernel density estimation; see \code{stats::density} help page for more details. 
 #' @export
 #' @return an updated scData class object with the following attributes updated
 #'

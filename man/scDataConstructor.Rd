@@ -16,9 +16,9 @@ an scData class object.
 \code{scDataConstructor} creates a new scData class object from a tag table.
 }
 \details{
-Creates an object in scData (single-cell RNA-Seq dataset) class.
+creates an object in scData (single-cell RNA-Seq dataset) class.
 Attributes of the class include scalar, vector and matrix
-data types necessary for the CIDR analysis - such as tag table, library
+data types necessary for the \emph{CIDR} analysis - such as tag table, library
 sizes, dropout candidates, imputation weighting threshold.
 }
 \examples{
