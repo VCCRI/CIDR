@@ -48,7 +48,7 @@ cidrPcoa <- function (D) {
   D.eig$values[zero.eig] <- 0
 
   if (min.eig > -epsilon) {
-    eig <- D.eig$values
+    eig <- sort(D.eig$values, decreasing = TRUE)
     k <- length(which(eig > epsilon))
     rel.eig <- eig[1:k]/trace
     vectors <- sweep(D.eig$vectors[, 1:k], 2, sqrt(eig[1:k]), FUN = "*")
@@ -58,10 +58,9 @@ cidrPcoa <- function (D) {
     rownames(vectors) <- names
     colnames(vectors) <- colnames(vectors, do.NULL = FALSE, prefix = "Axis.")
     out <- (list(values = res, vectors = vectors, trace = trace))
-  }
-  else {
+  } else {
     k <- n
-    eig <- D.eig$values
+    eig <- sort(D.eig$values, decreasing = TRUE)
     rel.eig <- eig/trace
     k2 <- length(which(eig > epsilon))
     vectors <- sweep(D.eig$vectors[, 1:k2], 2, sqrt(eig[1:k2]), FUN = "*")
@@ -71,6 +70,6 @@ cidrPcoa <- function (D) {
     rownames(vectors) <- names
     colnames(vectors) <- colnames(vectors, do.NULL = FALSE, prefix = "Axis.")
     out <- (list(values = res, vectors = vectors, trace = trace))
-    }
+  }
   return(out)
 }
