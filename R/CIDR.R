@@ -345,16 +345,11 @@ setGeneric("nCluster", function(object, n=NULL, nPC=4) {
 #' example(cidr)
 setMethod("nCluster", "scData", function(object, n, nPC){
     if(is.null(n)){
-        n <- nPC*2+2
+        n <- nPC*3+3
     }
     exp_clustering <- object@PC[, c(1:nPC)]
-    y <- hclust(dist(exp_clustering), method=object@cMethod)
-    CH <-rep(NA, n)
-    CH[1] <- 0
-    for (k in 2:n){
-        clusters <- cutree(y, k=k)
-        CH[k] <- intCriteria(as.matrix(exp_clustering), clusters, "Calinski_Harabasz")[[1]]
-    }
+    CH <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=n)$All.index
+    
     plot(2:n, CH[2:n], type="b",
          xlab="Number of Clusters", ylab="Calinski-Harabasz Index",
          bty="l")
@@ -396,18 +391,18 @@ setMethod("scCluster", "scData", function(object, n, nCluster, nPC){
     if (!is.null(n) & !is.null(nCluster)) {
         stop("Invalid input: user should not assign both n and nCluster.")
     } else if (!is.null(n)){
-        y <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc = n)
-        object@nCluster <- y$Best.nc[1]
-        object@clusters <- y$Best.partition
+        CH <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=n)$All.index
+        l <- length(CH)
+        object@nCluster <- which.min(as.vector(CH[-c(1,l-1,l)]+CH[-c(1:3)] - 2*CH[-c(1,2,l)]))+2
+        object@clusters <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=object@nCluster, max.nc=object@nCluster)$Best.partition
     } else if (!is.null(nCluster)) {
         object@nCluster <- nCluster
-        y <- hclust(dist(exp_clustering), method=object@cMethod)
-        clusters <- cutree(y, k=object@nCluster)
-        object@clusters <- clusters
+        object@clusters <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=object@nCluster, max.nc=object@nCluster)$Best.partition
     } else {
-        y <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=nPC*2+2)
-        object@nCluster <- y$Best.nc[1]
-        object@clusters <- y$Best.partition
+        CH <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=nPC*3+3)$All.index
+        l <- length(CH)
+        object@nCluster <- which.min(as.vector(CH[-c(1,l-1,l)]+CH[-c(1:3)] - 2*CH[-c(1,2,l)]))+2
+        object@clusters <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=object@nCluster, max.nc=object@nCluster)$Best.partition
     }
     return(object)
 })
