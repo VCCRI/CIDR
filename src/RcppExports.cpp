@@ -6,17 +6,17 @@
 using namespace Rcpp;
 
 // cpp_dist
-NumericMatrix cpp_dist(NumericMatrix D, IntegerMatrix T, NumericMatrix C, int ncol, double threshold);
-RcppExport SEXP cidr_cpp_dist(SEXP DSEXP, SEXP TSEXP, SEXP CSEXP, SEXP ncolSEXP, SEXP thresholdSEXP) {
+NumericMatrix cpp_dist(NumericMatrix dist, IntegerMatrix truth, NumericMatrix counts, int ncol, double threshold);
+RcppExport SEXP cidr_cpp_dist(SEXP distSEXP, SEXP truthSEXP, SEXP countsSEXP, SEXP ncolSEXP, SEXP thresholdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type D(DSEXP);
-    Rcpp::traits::input_parameter< IntegerMatrix >::type T(TSEXP);
-    Rcpp::traits::input_parameter< NumericMatrix >::type C(CSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type dist(distSEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type truth(truthSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type counts(countsSEXP);
     Rcpp::traits::input_parameter< int >::type ncol(ncolSEXP);
     Rcpp::traits::input_parameter< double >::type threshold(thresholdSEXP);
-    rcpp_result_gen = Rcpp::wrap(cpp_dist(D, T, C, ncol, threshold));
+    rcpp_result_gen = Rcpp::wrap(cpp_dist(dist, truth, counts, ncol, threshold));
     return rcpp_result_gen;
 END_RCPP
 }

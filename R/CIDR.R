@@ -241,7 +241,7 @@ setMethod("wThreshold", "scData", function(object, cutoff){
     return(object)
 })
 
-setGeneric("scDissim", function(object, correction=FALSE) {
+setGeneric("scDissim", function(object, correction=FALSE, threads=0) {
     standardGeneric("scDissim")
 })
 
@@ -255,9 +255,11 @@ setGeneric("scDissim", function(object, correction=FALSE) {
 #'
 #' @param object an scData class object.
 #' @param correction Boolean; if \code{TRUE}, Cailliez correction is applied; by default \code{FALSE}.
+#' @param threads integer; number of threads to be used; by default \code{0}, which uses all available threads.
 #'
 #' @importFrom Rcpp evalCpp
 #' @importFrom ade4 cailliez
+#' @import RcppParallel
 #' @export
 #'
 #' @return an updated scData class object with the following attribute updated
@@ -266,7 +268,18 @@ setGeneric("scDissim", function(object, correction=FALSE) {
 #'
 #' @examples
 #' example(cidr)
-setMethod("scDissim", "scData", function(object, correction){
+setMethod("scDissim", "scData", function(object, correction, threads){
+      ## the user can choose the number of threads
+      threads_int <- as.integer(threads)
+      if(!is.na(threads_int) && (threads_int > 0) && (threads_int < defaultNumThreads())) {
+          ## user chooses valid thread number - set it
+          numThreads <- threads_int
+          RcppParallel::setThreadOptions(numThreads=threads_int)
+      } else {
+          ## reset to default
+          numThreads <- defaultNumThreads()
+          RcppParallel::setThreadOptions(numThreads=RcppParallel::defaultNumThreads())
+      }
       N <- ncol(object@nData)
       Dist <- array(0, dim=c(N, N))
       D <- cpp_dist(Dist, object@dropoutCandidates, object@nData, N, object@wThreshold)

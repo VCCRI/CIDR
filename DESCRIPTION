@@ -15,7 +15,9 @@ Imports:
     clusterCrit,
     minpack.lm,
     mclust,
-    NbClust
-LinkingTo: Rcpp
+    NbClust,
+    RcppParallel
+LinkingTo: Rcpp, RcppParallel
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
+SystemRequirements: GNU make

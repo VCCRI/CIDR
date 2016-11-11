@@ -5,12 +5,14 @@
 \alias{scDissim}
 \title{CIDR Dissimilarity Matrix}
 \usage{
-\S4method{scDissim}{scData}(object, correction = FALSE)
+\S4method{scDissim}{scData}(object, correction = FALSE, threads = 0)
 }
 \arguments{
 \item{object}{an scData class object.}
 
 \item{correction}{Boolean; if \code{TRUE}, Cailliez correction is applied; by default \code{FALSE}.}
+
+\item{threads}{integer; number of threads to be used; by default \code{0}, which uses all available threads.}
 }
 \value{
 an updated scData class object with the following attribute updated
