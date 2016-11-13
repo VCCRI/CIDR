@@ -48,10 +48,12 @@ cidrPcoa <- function (D) {
   D.eig$values[zero.eig] <- 0
 
   if (min.eig > -epsilon) {
-    eig <- sort(D.eig$values, decreasing = TRUE)
+    eig_order <- order(D.eig$values, decreasing = TRUE)  
+    eig <- D.eig$values[eig_order]
+    eig_vectors <- D.eig$vectors[,eig_order]
     k <- length(which(eig > epsilon))
     rel.eig <- eig[1:k]/trace
-    vectors <- sweep(D.eig$vectors[, 1:k], 2, sqrt(eig[1:k]), FUN = "*")
+    vectors <- sweep(eig_vectors[, 1:k], 2, sqrt(eig[1:k]), FUN = "*")
     res <- data.frame(eig[1:k], rel.eig)
     colnames(res) <- c("Eigenvalues", "Relative_eig")
     rownames(res) <- 1:nrow(res)
@@ -60,10 +62,12 @@ cidrPcoa <- function (D) {
     out <- (list(values = res, vectors = vectors, trace = trace))
   } else {
     k <- n
-    eig <- sort(D.eig$values, decreasing = TRUE)
+    eig_order <- order(D.eig$values, decreasing = TRUE)
+    eig <- D.eig$values[eig_order]
+    eig_vectors <- D.eig$vectors[,eig_order]
     rel.eig <- eig/trace
     k2 <- length(which(eig > epsilon))
-    vectors <- sweep(D.eig$vectors[, 1:k2], 2, sqrt(eig[1:k2]), FUN = "*")
+    vectors <- sweep(eig_vectors[, 1:k2], 2, sqrt(eig[1:k2]), FUN = "*")
     res <- data.frame(eig[1:k], rel.eig)
     colnames(res) <- c("Eigenvalues", "Relative_eig")
     rownames(res) <- 1:nrow(res)
