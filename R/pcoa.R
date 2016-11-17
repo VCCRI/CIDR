@@ -29,7 +29,7 @@ cidrPcoa <- function (D) {
     centre <- function(D, n) {
         One <- matrix(1, n, n)
         mat <- diag(n) - One/n
-        #mat.cen <- mat %*% D %*% mat
+        ## use RcppEigen to calculate product: (mat * D * mat)
         mat.cen <- eigen_centre(mat, D)$centre
     }
     D <- as.matrix(D)
@@ -44,7 +44,6 @@ cidrPcoa <- function (D) {
     min.eig <- D.eig$values[1]
     zero.eig <- which(abs(D.eig$values) < epsilon)
     D.eig$values[zero.eig] <- 0
-    
     ## reverse the eigenspace - so that it is sorted descending
     eig_values <- D.eig$values[length(D.eig$values):1]
     eig_vectors <- D.eig$vectors[,ncol(D.eig$vectors):1]
