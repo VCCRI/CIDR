@@ -406,19 +406,23 @@ setMethod("scCluster", "scData", function(object, n, nCluster, nPC){
     exp_clustering <- object@PC[, c(1:nPC)]
     if (!is.null(n) & !is.null(nCluster)) {
         stop("Invalid input: user should not assign both n and nCluster.")
-    } else if (!is.null(n)){
-        CH <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=n)$All.index
-        l <- length(CH)
-        object@nCluster <- which.min(as.vector(CH[-c(1,l-1,l)]+CH[-c(1:3)] - 2*CH[-c(1,2,l)]))+2
-        object@clusters <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=object@nCluster, max.nc=object@nCluster)$Best.partition
     } else if (!is.null(nCluster)) {
         object@nCluster <- nCluster
         object@clusters <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=object@nCluster, max.nc=object@nCluster)$Best.partition
     } else {
-        CH <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=nPC*3+3)$All.index
+        if (is.null(n)) {
+            n <- nPC*3+3
+        }
+        CH <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=n)$All.index
         l <- length(CH)
-        object@nCluster <- which.min(as.vector(CH[-c(1,l-1,l)]+CH[-c(1:3)] - 2*CH[-c(1,2,l)]))+2
+        if (any(CH[-1]-CH[-l]>0)){
+            a <- CH[-1]-CH[-l]
+            b <- which(a>0)+1
+            object@nCluster <- b[which.max(CH[b])]
+        } else {
+            object@nCluster <- which.min(as.vector(CH[-c(1,l-1,l)]+CH[-c(1:3)] - 2*CH[-c(1,2,l)]))+2
+        }
         object@clusters <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=object@nCluster, max.nc=object@nCluster)$Best.partition
-    }
+    } 
     return(object)
 })
