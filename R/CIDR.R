@@ -319,8 +319,10 @@ setGeneric("scPCA", function(object) {
 #' example(cidr)
 setMethod("scPCA", "scData", function(object){
     y <- cidrPcoa(object@dissim)
-    variation <- y$values$Eigenvalues
+    variation <- y$values
+    ## store all eigenvalues - neg, 0, & pos
     object@eigenvalues <- variation
+    ## for variation, only deal with positive eigenvalues
     variation <- variation[variation>0]
     object@PC <- y$vectors[, 1:length(variation)]
     variation <- variation/sum(variation)
@@ -328,6 +330,7 @@ setMethod("scPCA", "scData", function(object){
     plot(object@variation, xlab="PC", ylab="Proportion", main="Proportion of Variation")
     return(object)
 })
+
 
 setGeneric("nCluster", function(object, n=NULL, nPC=4) {
     standardGeneric("nCluster")

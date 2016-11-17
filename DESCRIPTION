@@ -16,8 +16,9 @@ Imports:
     minpack.lm,
     mclust,
     NbClust,
-    RcppParallel
-LinkingTo: Rcpp, RcppParallel
+    RcppParallel (>= 4.3.20),
+    RcppEigen (>= 0.3.2.9.0)
+LinkingTo: Rcpp, RcppParallel, RcppEigen
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
 SystemRequirements: GNU make
