@@ -331,14 +331,12 @@ setMethod("scPCA", "scData", function(object){
     a <- as.vector(variation[-c(1,l-1,l)]+variation[-c(1:3)] - 2*variation[-c(1,2,l)])
     b <- which.max(a)
     c <- which.max(a[-c(1:b)])
-    if (a[b+c]>=(1/3*a[b])) {
+    if ((3*a[b+c]) > a[b]) {
         object@nPC <- b+c+1
     } else {
         object@nPC <- b+1
     }
-#    a <- variation[-l]-variation[-1]
-#    object@nPC <- max(which(a>2*mean(a)))
-#    object@nPC <- 4
+
     plot(object@variation, xlab="PC", ylab="Proportion", main="Proportion of Variation")
     return(object)
 })
@@ -437,13 +435,15 @@ setMethod("scCluster", "scData", function(object, n, nCluster, nPC){
         }
         CH <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=n)$All.index
         l <- length(CH)
-        if (any((CH[-c(1,2)]-CH[-c(1,l)])>0)){
-            a <- CH[-c(1,2)]-CH[-c(1,l)]
-            b <- which(a>0)+2
-            object@nCluster <- b[which.max(CH[b])]
+        a <- as.vector(CH[-c(1,l-1,l)]+CH[-c(1:3)] - 2*CH[-c(1,2,l)])
+        b <- which.min(a)
+        c <- which.min(a[-c(1:b)])
+        if ((3*a[b+c])<a[b]){
+            object@nCluster <- b+c+2
         } else {
-            object@nCluster <- which.min(as.vector(CH[-c(1,l-1,l)]+CH[-c(1:3)] - 2*CH[-c(1,2,l)]))+2
+            object@nCluster <- b+2
         }
+        
         object@clusters <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=object@nCluster, max.nc=object@nCluster)$Best.partition
     } 
     return(object)
