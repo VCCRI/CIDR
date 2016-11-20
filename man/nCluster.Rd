@@ -5,7 +5,7 @@
 \alias{nCluster}
 \title{nCluster}
 \usage{
-\S4method{nCluster}{scData}(object, n = NULL, nPC = 4)
+\S4method{nCluster}{scData}(object, n = NULL, nPC = NULL)
 }
 \arguments{
 \item{object}{an scData class object.}

@@ -327,12 +327,24 @@ setMethod("scPCA", "scData", function(object){
     object@PC <- y$vectors[, 1:length(variation)]
     variation <- variation/sum(variation)
     object@variation <- variation
+    l<-length(variation)
+    a <- as.vector(variation[-c(1,l-1,l)]+variation[-c(1:3)] - 2*variation[-c(1,2,l)])
+    b <- which.max(a)
+    c <- which.max(a[-c(1:b)])
+    if (a[b+c]>=(1/3*a[b])) {
+        object@nPC <- b+c+1
+    } else {
+        object@nPC <- b+1
+    }
+#    a <- variation[-l]-variation[-1]
+#    object@nPC <- max(which(a>2*mean(a)))
+#    object@nPC <- 4
     plot(object@variation, xlab="PC", ylab="Proportion", main="Proportion of Variation")
     return(object)
 })
 
 
-setGeneric("nCluster", function(object, n=NULL, nPC=4) {
+setGeneric("nCluster", function(object, n=NULL, nPC=NULL) {
     standardGeneric("nCluster")
 })
 
@@ -360,18 +372,23 @@ setGeneric("nCluster", function(object, n=NULL, nPC=4) {
 #' @examples
 #' example(cidr)
 setMethod("nCluster", "scData", function(object, n, nPC){
+    if(!is.null(nPC)){
+        object@nPC <- nPC
+    } else {
+        nPC <- object@nPC
+    }
     if(is.null(n)){
         n <- nPC*3+3
     }
     exp_clustering <- object@PC[, c(1:nPC)]
     CH <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=n)$All.index
     
-    plot(2:n, CH[2:n], type="b",
+    plot(1:n, CH[1:n], type="b",
          xlab="Number of Clusters", ylab="Calinski-Harabasz Index",
          bty="l")
 })
 
-setGeneric("scCluster", function(object, n=NULL, nCluster=NULL, nPC=4) {
+setGeneric("scCluster", function(object, n=NULL, nCluster=NULL, nPC=NULL) {
     standardGeneric("scCluster")
 })
 
@@ -402,7 +419,12 @@ setGeneric("scCluster", function(object, n=NULL, nCluster=NULL, nPC=4) {
 #' @examples
 #' example(cidr)
 setMethod("scCluster", "scData", function(object, n, nCluster, nPC){
-    object@nPC <- nPC
+    if(!is.null(nPC)){
+        object@nPC <- nPC
+    } else {
+        nPC <- object@nPC
+    }
+
     exp_clustering <- object@PC[, c(1:nPC)]
     if (!is.null(n) & !is.null(nCluster)) {
         stop("Invalid input: user should not assign both n and nCluster.")
@@ -415,9 +437,9 @@ setMethod("scCluster", "scData", function(object, n, nCluster, nPC){
         }
         CH <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=n)$All.index
         l <- length(CH)
-        if (any(CH[-1]-CH[-l]>0)){
-            a <- CH[-1]-CH[-l]
-            b <- which(a>0)+1
+        if (any((CH[-c(1,2)]-CH[-c(1,l)])>0)){
+            a <- CH[-c(1,2)]-CH[-c(1,l)]
+            b <- which(a>0)+2
             object@nCluster <- b[which.max(CH[b])]
         } else {
             object@nCluster <- which.min(as.vector(CH[-c(1,l-1,l)]+CH[-c(1:3)] - 2*CH[-c(1,2,l)]))+2

@@ -5,7 +5,8 @@
 \alias{scCluster}
 \title{Single-cell Clustering}
 \usage{
-\S4method{scCluster}{scData}(object, n = NULL, nCluster = NULL, nPC = 4)
+\S4method{scCluster}{scData}(object, n = NULL, nCluster = NULL,
+  nPC = NULL)
 }
 \arguments{
 \item{object}{an scData class object.}
