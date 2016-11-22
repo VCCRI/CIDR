@@ -1,11 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-CIDR - Clustering through Imputation and Dimensionality Reduction
-=================================================================
+<a href="url"><img src="http://bioinformatics.victorchang.edu.au/projects/cidr/images/cidr_logo.png" align="left" height="96" alt="CIDR"></a>
+=============================================================================================================================================
+
+Clustering through Imputation and Dimensionality Reduction
+==========================================================
 
 Ultrafast and accurate clustering through imputation and dimensionality reduction for single-cell RNA-seq data.
-
-![CIDR Logo](http://bioinformatics.victorchang.edu.au/projects/cidr/images/cidr_logo.png)
 
 Most existing dimensionality reduction and clustering packages for single-cell RNA-Seq (scRNA-Seq) data deal with dropouts by heavy modelling and computational machinery. Here we introduce *CIDR* (Clustering through Imputation and Dimensionality Reduction), an ultrafast algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the impact of dropouts in scRNA-Seq data in a principled manner.
 
