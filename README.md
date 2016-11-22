@@ -5,6 +5,8 @@ CIDR - Clustering through Imputation and Dimensionality Reduction
 
 Ultrafast and accurate clustering through imputation and dimensionality reduction for single-cell RNA-seq data.
 
+![CIDR Logo](http://bioinformatics.victorchang.edu.au/projects/cidr/images/cidr_logo.png)
+
 Most existing dimensionality reduction and clustering packages for single-cell RNA-Seq (scRNA-Seq) data deal with dropouts by heavy modelling and computational machinery. Here we introduce *CIDR* (Clustering through Imputation and Dimensionality Reduction), an ultrafast algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the impact of dropouts in scRNA-Seq data in a principled manner.
 
 For more details about *CIDR* refer to the [preprint](http://biorxiv.org/content/early/2016/08/10/068775) on BioRxiv.
@@ -100,22 +102,19 @@ example("cidr")
     #> cidr> ## while different plotting symbols denote the clusters output by cidr.
     #> cidr> plot(sData@PC[,c(1,2)], col=cols,
     #> cidr+      pch=sData@clusters, main="CIDR", xlab="PC1", ylab="PC2")
-
-![](README-unnamed-chunk-4-5.png)
-
     #> 
     #> cidr> ## Use Adjusted Rand Index to measure the accuracy of the clustering output by cidr.
     #> cidr> adjustedRandIndex(sData@clusters,cols)
-    #> [1] 0.7895042
+    #> [1] 0.9203693
     #> 
     #> cidr> ## 0.79
-    #> cidr> ## Alter the number of PCs used in the clustering.
+    #> cidr> ## Alter the number of PCs used in clustering.
     #> cidr> sData <- scCluster(sData, nPC=2)
     #> 
     #> cidr> plot(sData@PC[,c(1,2)], col=cols,
     #> cidr+      pch=sData@clusters,main="CIDR",xlab="PC1", ylab="PC2")
 
-![](README-unnamed-chunk-4-6.png)
+![](README-unnamed-chunk-4-5.png)
 
     #> 
     #> cidr> adjustedRandIndex(sData@clusters,cols)
