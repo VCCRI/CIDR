@@ -5,12 +5,14 @@
 \alias{wThreshold}
 \title{Imputation Weighting Threshold}
 \usage{
-\S4method{wThreshold}{scData}(object, cutoff = 0.5)
+\S4method{wThreshold}{scData}(object, cutoff = 0.5, plotTornado = FALSE)
 }
 \arguments{
 \item{object}{an scData class object.}
 
 \item{cutoff}{parameter in the range (0,1), used in the calculation of imputation weighting threshold.}
+
+\item{plotTornado}{Boolean; if \code{TRUE}, the \emph{Tornado Plot} is produced.}
 }
 \value{
 an updated scData class object with the following attribute updated

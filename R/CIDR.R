@@ -30,6 +30,7 @@
 #' sData <- wThreshold(sData)
 #' sData <- scDissim(sData)
 #' sData <- scPCA(sData)
+#' sData <- nPC(sData)
 #' nCluster(sData)
 #' sData <- scCluster(sData)
 #' ## Two dimensional visualization: different colors denote different cell types,
@@ -37,12 +38,6 @@
 #' plot(sData@PC[,c(1,2)], col=cols,
 #'      pch=sData@clusters, main="CIDR", xlab="PC1", ylab="PC2")
 #' ## Use Adjusted Rand Index to measure the accuracy of the clustering output by cidr.
-#' adjustedRandIndex(sData@clusters,cols)
-#' ## 0.79
-#' ## Alter the number of PCs used in clustering.
-#' sData <- scCluster(sData, nPC=2)
-#' plot(sData@PC[,c(1,2)], col=cols,
-#'      pch=sData@clusters,main="CIDR",xlab="PC1", ylab="PC2")
 #' adjustedRandIndex(sData@clusters,cols)
 #' ## 0.92
 NULL
@@ -186,7 +181,7 @@ setMethod("determineDropoutCandidates", "scData", function(object, min1, min2, N
     return(object)
 })
 
-setGeneric("wThreshold", function(object, cutoff=0.5){
+setGeneric("wThreshold", function(object, cutoff=0.5, plotTornado=FALSE){
     standardGeneric("wThreshold")
 })
 
@@ -200,6 +195,7 @@ setGeneric("wThreshold", function(object, cutoff=0.5){
 #'
 #' @param object an scData class object.
 #' @param cutoff parameter in the range (0,1), used in the calculation of imputation weighting threshold.
+#' @param plotTornado Boolean; if \code{TRUE}, the \emph{Tornado Plot} is produced.
 #'
 #' @importFrom minpack.lm nlsLM
 #' @export
@@ -210,7 +206,7 @@ setGeneric("wThreshold", function(object, cutoff=0.5){
 #'
 #' @examples
 #' example(cidr)
-setMethod("wThreshold", "scData", function(object, cutoff){
+setMethod("wThreshold", "scData", function(object, cutoff, plotTornado){
     delete <- which(rowSums(object@dropoutCandidates)==object@sampleSize)
     if(length(delete)>0){
         nData <- object@nData[-delete,]
@@ -229,14 +225,18 @@ setMethod("wThreshold", "scData", function(object, cutoff){
     a <- coef(qu)[1]
     b <- coef(qu)[2]
     threshold <- 1/a*log(1/cutoff-1)+b
-    x <- 1:10000/10000*max(averLcpm)
-    y <- 1/(1+exp(a*(x-b)))
-    smoothScatter(averLcpm, dropoutRates, nrpoints=0,
-                  xlab="Average of Expressed Entries (logTPM)",
-                  ylab="Empirical Dropout Rate",
-                  main="Tornado Plot",bty="l")
-    points(x, y, col="RED", type="l")
-    points(threshold, cutoff, col="RED", pch=16)
+    
+    if (plotTornado){
+        x <- 1:10000/10000*max(averLcpm)
+        y <- 1/(1+exp(a*(x-b)))
+        smoothScatter(averLcpm, dropoutRates, nrpoints=0,
+                      xlab="Average of Expressed Entries (logTPM)",
+                      ylab="Empirical Dropout Rate",
+                      main="Tornado Plot",bty="l")
+        points(x, y, col="RED", type="l")
+        points(threshold, cutoff, col="RED", pch=16)
+    }
+    
     object@wThreshold <- threshold
     return(object)
 })
@@ -327,17 +327,36 @@ setMethod("scPCA", "scData", function(object){
     object@PC <- y$vectors[, 1:length(variation)]
     variation <- variation/sum(variation)
     object@variation <- variation
-    l<-length(variation)
-    a <- as.vector(variation[-c(1,l-1,l)]+variation[-c(1:3)] - 2*variation[-c(1,2,l)])
-    b <- which.max(a)
-    c <- which.max(a[-c(1:b)])
-    if ((3*a[b+c]) > a[b]) {
-        object@nPC <- b+c+1
-    } else {
-        object@nPC <- b+1
-    }
 
     plot(object@variation, xlab="PC", ylab="Proportion", main="Proportion of Variation")
+    return(object)
+})
+
+
+setGeneric("nPC", function(object) {
+    standardGeneric("nPC")
+})
+
+#' @title Determine nPC
+#'
+#' @description
+#' determine the optimal number of principal coordinates (nPC) to be used in clustering.
+#'
+#' @rdname nPC
+#' @name nPC
+#'
+#' @param object an scData class object.
+#'
+#' @export
+#'
+#' @return an updated scData class object with the following attribute updated
+#'
+#' \item{nPC}{the number of principal coordinates to be used in clustering.}
+#'
+#' @examples
+#' example(cidr)
+setMethod("nPC", "scData", function(object){
+    object@nPC <- calc_npc(object@variation)
     return(object)
 })
 

@@ -29,6 +29,7 @@ sData <- determineDropoutCandidates(sData)
 sData <- wThreshold(sData)
 sData <- scDissim(sData)
 sData <- scPCA(sData)
+sData <- nPC(sData)
 nCluster(sData)
 sData <- scCluster(sData)
 ## Two dimensional visualization: different colors denote different cell types,
@@ -36,12 +37,6 @@ sData <- scCluster(sData)
 plot(sData@PC[,c(1,2)], col=cols,
      pch=sData@clusters, main="CIDR", xlab="PC1", ylab="PC2")
 ## Use Adjusted Rand Index to measure the accuracy of the clustering output by cidr.
-adjustedRandIndex(sData@clusters,cols)
-## 0.79
-## Alter the number of PCs used in clustering.
-sData <- scCluster(sData, nPC=2)
-plot(sData@PC[,c(1,2)], col=cols,
-     pch=sData@clusters,main="CIDR",xlab="PC1", ylab="PC2")
 adjustedRandIndex(sData@clusters,cols)
 ## 0.92
 }
