@@ -44,3 +44,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cpp_dist_weighted
+NumericMatrix cpp_dist_weighted(NumericMatrix dist, IntegerMatrix truth, NumericMatrix counts, int ncol, double a, double b);
+RcppExport SEXP cidr_cpp_dist_weighted(SEXP distSEXP, SEXP truthSEXP, SEXP countsSEXP, SEXP ncolSEXP, SEXP aSEXP, SEXP bSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type dist(distSEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type truth(truthSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type counts(countsSEXP);
+    Rcpp::traits::input_parameter< int >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_dist_weighted(dist, truth, counts, ncol, a, b));
+    return rcpp_result_gen;
+END_RCPP
+}

@@ -5,7 +5,8 @@
 \alias{scDissim}
 \title{CIDR Dissimilarity Matrix}
 \usage{
-\S4method{scDissim}{scData}(object, correction = FALSE, threads = 0)
+\S4method{scDissim}{scData}(object, correction = FALSE, threads = 0,
+  useStepFunction = TRUE)
 }
 \arguments{
 \item{object}{an scData class object.}
@@ -13,6 +14,10 @@
 \item{correction}{Boolean; if \code{TRUE}, Cailliez correction is applied; by default \code{FALSE}.}
 
 \item{threads}{integer; number of threads to be used; by default \code{0}, which uses all available threads.}
+
+\item{useStepFunction}{Boolean; if \code{TRUE}, uses the step function as the imputation weighting function.
+If \code{FALSE}, uses the negative logistic function that was fit by the \code{\link{wThreshold}} function.
+Default is \code{TRUE}.}
 }
 \value{
 an updated scData class object with the following attribute updated

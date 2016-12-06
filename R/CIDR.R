@@ -63,6 +63,8 @@ setClass("scData", representation(tags="matrix",
                                   priorTPM="numeric",
                                   dThreshold="vector",
                                   wThreshold="numeric",
+                                  pDropoutCoefA="numeric",
+                                  pDropoutCoefB="numeric",
                                   dropoutCandidates="matrix",
                                   PC="matrix",
                                   variation="vector",
@@ -188,14 +190,20 @@ setGeneric("wThreshold", function(object, cutoff=0.5, plotTornado=FALSE){
 #' @title Imputation Weighting Threshold
 #'
 #' @description
-#' determines the imputation weighting threshold.
+#' Determines the imputation weighting threshold.
 #'
 #' @rdname wThreshold
 #' @name wThreshold
 #'
 #' @param object an scData class object.
-#' @param cutoff parameter in the range (0,1), used in the calculation of imputation weighting threshold.
+#' @param cutoff parameter in the range (0,1), used in the calculation of imputation weighting threshold. Default is 0.5.
 #' @param plotTornado Boolean; if \code{TRUE}, the \emph{Tornado Plot} is produced.
+#'
+#' @details
+#' This method finds a function P(u) that maps the average expression level of a gene to the
+#' probability of a dropout occurring. It does this by fitting a negative logistic function
+#' to the empirical dropouts vs average expression data. The imputation weighting threshold
+#' is calculated as the value of u at which P(u) = \code{cutoff}.
 #'
 #' @importFrom minpack.lm nlsLM
 #' @export
@@ -203,6 +211,8 @@ setGeneric("wThreshold", function(object, cutoff=0.5, plotTornado=FALSE){
 #' @return an updated scData class object with the following attribute updated
 #'
 #' \item{wThreshold}{imputation weighting threshold.}
+#' \item{pDropoutCoefA}{the steepness parameter of the negative logistic function that fits the data.}
+#' \item{pDropoutCoefB}{the midpoint parameter of the negative logistic function that fits the data.}
 #'
 #' @examples
 #' example(cidr)
@@ -238,10 +248,12 @@ setMethod("wThreshold", "scData", function(object, cutoff, plotTornado){
     }
     
     object@wThreshold <- threshold
+    object@pDropoutCoefA <- a
+    object@pDropoutCoefB <- b
     return(object)
 })
 
-setGeneric("scDissim", function(object, correction=FALSE, threads=0) {
+setGeneric("scDissim", function(object, correction=FALSE, threads=0, useStepFunction=TRUE) {
     standardGeneric("scDissim")
 })
 
@@ -256,6 +268,9 @@ setGeneric("scDissim", function(object, correction=FALSE, threads=0) {
 #' @param object an scData class object.
 #' @param correction Boolean; if \code{TRUE}, Cailliez correction is applied; by default \code{FALSE}.
 #' @param threads integer; number of threads to be used; by default \code{0}, which uses all available threads.
+#' @param useStepFunction Boolean; if \code{TRUE}, uses the step function as the imputation weighting function.
+#'                                 If \code{FALSE}, uses the negative logistic function that was fit by the \code{\link{wThreshold}} function.
+#'                                 Default is \code{TRUE}.
 #'
 #' @importFrom Rcpp evalCpp
 #' @importFrom ade4 cailliez
@@ -268,7 +283,7 @@ setGeneric("scDissim", function(object, correction=FALSE, threads=0) {
 #'
 #' @examples
 #' example(cidr)
-setMethod("scDissim", "scData", function(object, correction, threads){
+setMethod("scDissim", "scData", function(object, correction, threads, useStepFunction){
       ## the user can choose the number of threads
       threads_int <- as.integer(threads)
       if(!is.na(threads_int) && (threads_int > 0) && (threads_int < defaultNumThreads())) {
@@ -282,7 +297,11 @@ setMethod("scDissim", "scData", function(object, correction, threads){
       }
       N <- ncol(object@nData)
       Dist <- array(0, dim=c(N, N))
-      D <- cpp_dist(Dist, object@dropoutCandidates, object@nData, N, object@wThreshold)
+      if (useStepFunction) {
+        D <- cpp_dist(Dist, object@dropoutCandidates, object@nData, N, object@wThreshold)
+      } else {
+        D <- cpp_dist_weighted(Dist, object@dropoutCandidates, object@nData, N, object@pDropoutCoefA, object@pDropoutCoefB)
+      }
       D <- sqrt(D)
       D <- D+t(D)
       if(correction){

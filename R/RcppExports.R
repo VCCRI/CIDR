@@ -13,3 +13,7 @@ cpp_dist <- function(dist, truth, counts, ncol, threshold) {
     .Call('cidr_cpp_dist', PACKAGE = 'cidr', dist, truth, counts, ncol, threshold)
 }
 
+cpp_dist_weighted <- function(dist, truth, counts, ncol, a, b) {
+    .Call('cidr_cpp_dist_weighted', PACKAGE = 'cidr', dist, truth, counts, ncol, a, b)
+}
+

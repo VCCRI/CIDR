@@ -10,7 +10,7 @@
 \arguments{
 \item{object}{an scData class object.}
 
-\item{cutoff}{parameter in the range (0,1), used in the calculation of imputation weighting threshold.}
+\item{cutoff}{parameter in the range (0,1), used in the calculation of imputation weighting threshold. Default is 0.5.}
 
 \item{plotTornado}{Boolean; if \code{TRUE}, the \emph{Tornado Plot} is produced.}
 }
@@ -18,9 +18,17 @@
 an updated scData class object with the following attribute updated
 
 \item{wThreshold}{imputation weighting threshold.}
+\item{pDropoutCoefA}{the steepness parameter of the negative logistic function that fits the data.}
+\item{pDropoutCoefB}{the midpoint parameter of the negative logistic function that fits the data.}
 }
 \description{
-determines the imputation weighting threshold.
+Determines the imputation weighting threshold.
+}
+\details{
+This method finds a function P(u) that maps the average expression level of a gene to the
+probability of a dropout occurring. It does this by fitting a negative logistic function
+to the empirical dropouts vs average expression data. The imputation weighting threshold
+is calculated as the value of u at which P(u) = \code{cutoff}.
 }
 \examples{
 example(cidr)

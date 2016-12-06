@@ -22,3 +22,4 @@ LinkingTo: Rcpp, RcppParallel, RcppEigen
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
 SystemRequirements: GNU make
+Suggests: testthat
