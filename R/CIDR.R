@@ -1,9 +1,9 @@
 #' @title Clustering through Imputation and Dimensionality Reduction
 #'
-#' @description Fast and accurate clustering through imputation and dimensionality
-#' reduction for single-cell RNA-Seq data.
+#' @description Ultrafast and accurate clustering through imputation and dimensionality
+#' reduction for single-cell RNA-Seq (scRNA-Seq) data.
 #'
-#' @author Peijie Lin <P.Lin@victorchang.edu.au>, Michael Troup
+#' @author Peijie Lin <p.lin@victorchang.edu.au>, Michael Troup
 #'
 #' @docType package
 #' @name cidr-package
@@ -75,7 +75,7 @@ setClass("scData", representation(tags="matrix",
                                   nPC ="numeric",
                                   cMethod="character",
                                   correction="character"),
-         prototype(cMethod="ward.D2", nCluster=0, correction="none", priorTPM=1))
+         prototype(nCluster=0, correction="none", priorTPM=1))
 
 #' @title scData Constructor
 #'
@@ -268,9 +268,11 @@ setGeneric("scDissim", function(object, correction=FALSE, threads=0, useStepFunc
 #' @param object an scData class object.
 #' @param correction Boolean; if \code{TRUE}, Cailliez correction is applied; by default \code{FALSE}.
 #' @param threads integer; number of threads to be used; by default \code{0}, which uses all available threads.
-#' @param useStepFunction Boolean; if \code{TRUE}, uses the step function as the imputation weighting function.
-#'                                 If \code{FALSE}, uses the negative logistic function that was fit by the \code{\link{wThreshold}} function.
-#'                                 Default is \code{TRUE}.
+#' @param useStepFunction Boolean; if \code{TRUE} (default), a step function is used as the imputation weighting function;
+#'                                 if \code{FALSE}, a logistic function fitted by \code{\link{wThreshold}} is 
+#'                                 used as the imputation weighting function.
+#'                                 The logistic function implementation was written by Willem Van Der Byl.
+#'                                 
 #'
 #' @importFrom Rcpp evalCpp
 #' @importFrom ade4 cailliez
@@ -359,7 +361,7 @@ setGeneric("nPC", function(object) {
 #' @title Determine nPC
 #'
 #' @description
-#' determine the optimal number of principal coordinates (nPC) to be used in clustering.
+#' determines the optimal number of principal coordinates (nPC) to be used in clustering.
 #'
 #' @rdname nPC
 #' @name nPC
@@ -380,7 +382,7 @@ setMethod("nPC", "scData", function(object){
 })
 
 
-setGeneric("nCluster", function(object, n=NULL, nPC=NULL) {
+setGeneric("nCluster", function(object, n=NULL, nPC=NULL, cMethod="ward.D2") {
     standardGeneric("nCluster")
 })
 
@@ -401,13 +403,14 @@ setGeneric("nCluster", function(object, n=NULL, nPC=NULL) {
 #' @param object an scData class object.
 #' @param nPC the number of PCs used in clustering; by default 4.
 #' @param n maximum number of clusters; if \code{NULL} (default), it is set to be nPC*2+2.
+#' @param cMethod hierarchical clustering method; by default "ward.D2".
 #'
 #' @importFrom clusterCrit intCriteria
 #' @export
 #'
 #' @examples
 #' example(cidr)
-setMethod("nCluster", "scData", function(object, n, nPC){
+setMethod("nCluster", "scData", function(object, n, nPC, cMethod){
     if(!is.null(nPC)){
         object@nPC <- nPC
     } else {
@@ -416,22 +419,23 @@ setMethod("nCluster", "scData", function(object, n, nPC){
     if(is.null(n)){
         n <- nPC*3+3
     }
+
     exp_clustering <- object@PC[, c(1:nPC)]
-    CH <- NbClust(exp_clustering, method=object@cMethod, index="ch", min.nc=1, max.nc=n)$All.index
+    CH <- NbClust(exp_clustering, method=cMethod, index="ch", min.nc=1, max.nc=n)$All.index
     
     plot(1:n, CH[1:n], type="b",
          xlab="Number of Clusters", ylab="Calinski-Harabasz Index",
          bty="l")
 })
 
-setGeneric("scCluster", function(object, n=NULL, nCluster=NULL, nPC=NULL) {
+setGeneric("scCluster", function(object, n=NULL, nCluster=NULL, nPC=NULL, cMethod="ward.D2") {
     standardGeneric("scCluster")
 })
 
 #' @title Single-cell Clustering
 #'
 #' @description
-#' performs heirarchical clustering based on \emph{CIDR} principal coordinates.
+#' performs heirarchical clustering on \emph{CIDR} principal coordinates.
 #'
 #' @rdname scCluster
 #' @name scCluster
@@ -440,6 +444,7 @@ setGeneric("scCluster", function(object, n=NULL, nCluster=NULL, nPC=NULL) {
 #' @param nPC the number of PCs used in clustering; by default 4.
 #' @param n Calinski-Harabasz Index is used to decide which number between 2 and n is optimal as the number of clusters; if \code{NULL} (default), it is set to be nPC*2+2. User should not assign both n and nCluster.
 #' @param nCluster the number of clusters; if \code{NULL} (default), it is determined automatically. User should not assign both n and nCluster.
+#' @param cMethod hierarchical clustering method; by default "ward.D2".
 #' 
 #' @importFrom stats hclust
 #' @import NbClust
@@ -451,15 +456,17 @@ setGeneric("scCluster", function(object, n=NULL, nCluster=NULL, nPC=NULL) {
 #' \item{nCluster}{the number of clusters.}
 #' \item{nPC}{the number of PCs used in clustering.}
 #' \item{clusters}{a vector assigning each cell to a cluster.}
+#' \item{cMethod}{hierarchical clustering method.}
 #'
 #' @examples
 #' example(cidr)
-setMethod("scCluster", "scData", function(object, n, nCluster, nPC){
+setMethod("scCluster", "scData", function(object, n, nCluster, nPC, cMethod){
     if(!is.null(nPC)){
         object@nPC <- nPC
     } else {
         nPC <- object@nPC
     }
+    object@cMethod <- cMethod
 
     exp_clustering <- object@PC[, c(1:nPC)]
     if (!is.null(n) & !is.null(nCluster)) {

@@ -15,9 +15,10 @@
 
 \item{threads}{integer; number of threads to be used; by default \code{0}, which uses all available threads.}
 
-\item{useStepFunction}{Boolean; if \code{TRUE}, uses the step function as the imputation weighting function.
-If \code{FALSE}, uses the negative logistic function that was fit by the \code{\link{wThreshold}} function.
-Default is \code{TRUE}.}
+\item{useStepFunction}{Boolean; if \code{TRUE} (default), a step function is used as the imputation weighting function;
+if \code{FALSE}, a logistic function fitted by \code{\link{wThreshold}} is 
+used as the imputation weighting function.
+The logistic function implementation was written by Willem Van Der Byl.}
 }
 \value{
 an updated scData class object with the following attribute updated

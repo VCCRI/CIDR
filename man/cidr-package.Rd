@@ -6,8 +6,8 @@
 \alias{cidr-package}
 \title{Clustering through Imputation and Dimensionality Reduction}
 \description{
-Fast and accurate clustering through imputation and dimensionality
-reduction for single-cell RNA-Seq data.
+Ultrafast and accurate clustering through imputation and dimensionality
+reduction for single-cell RNA-Seq (scRNA-Seq) data.
 }
 \examples{
 par(ask=FALSE)
@@ -41,6 +41,6 @@ adjustedRandIndex(sData@clusters,cols)
 ## 0.92
 }
 \author{
-Peijie Lin <P.Lin@victorchang.edu.au>, Michael Troup
+Peijie Lin <p.lin@victorchang.edu.au>, Michael Troup
 }
 

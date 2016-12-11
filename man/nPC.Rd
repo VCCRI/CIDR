@@ -16,7 +16,7 @@ an updated scData class object with the following attribute updated
 \item{nPC}{the number of principal coordinates to be used in clustering.}
 }
 \description{
-determine the optimal number of principal coordinates (nPC) to be used in clustering.
+determines the optimal number of principal coordinates (nPC) to be used in clustering.
 }
 \examples{
 example(cidr)

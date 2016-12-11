@@ -6,7 +6,7 @@
 \title{Single-cell Clustering}
 \usage{
 \S4method{scCluster}{scData}(object, n = NULL, nCluster = NULL,
-  nPC = NULL)
+  nPC = NULL, cMethod = "ward.D2")
 }
 \arguments{
 \item{object}{an scData class object.}
@@ -16,6 +16,8 @@
 \item{nCluster}{the number of clusters; if \code{NULL} (default), it is determined automatically. User should not assign both n and nCluster.}
 
 \item{nPC}{the number of PCs used in clustering; by default 4.}
+
+\item{cMethod}{hierarchical clustering method; by default "ward.D2".}
 }
 \value{
 an updated scData class object with the following attributes updated
@@ -23,9 +25,10 @@ an updated scData class object with the following attributes updated
 \item{nCluster}{the number of clusters.}
 \item{nPC}{the number of PCs used in clustering.}
 \item{clusters}{a vector assigning each cell to a cluster.}
+\item{cMethod}{hierarchical clustering method.}
 }
 \description{
-performs heirarchical clustering based on \emph{CIDR} principal coordinates.
+performs heirarchical clustering on \emph{CIDR} principal coordinates.
 }
 \examples{
 example(cidr)
