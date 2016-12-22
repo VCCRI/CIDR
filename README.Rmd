@@ -95,3 +95,4 @@ install.packages("devtools")
 ## Click “Yes” in “Updating Loaded Packages”
 devtools::install_github("VCCRI/CIDR",force=TRUE)
 ```
+Some users might have installed an older version of RcppEigen. CIDR requires RcppEigen version >=0.3.2.9.0. Please re-install the latest version of this package if necessary.
