@@ -23,4 +23,3 @@ performs principal coordinates analysis on the \emph{CIDR} dissimilarity matrix.
 \examples{
 example(cidr)
 }
-

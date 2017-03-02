@@ -33,4 +33,3 @@ is calculated as the value of u at which P(u) = \code{cutoff}.
 \examples{
 example(cidr)
 }
-

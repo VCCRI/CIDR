@@ -20,4 +20,3 @@ calculates nPC.
 This function is used internally in the method \code{nPC};
 see the help page for \code{nPC} for more details.
 }
-

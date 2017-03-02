@@ -2,8 +2,8 @@
 % Please edit documentation in R/CIDR.R
 \docType{package}
 \name{cidr-package}
-\alias{cidr}
 \alias{cidr-package}
+\alias{cidr}
 \title{Clustering through Imputation and Dimensionality Reduction}
 \description{
 Ultrafast and accurate clustering through imputation and dimensionality
@@ -43,4 +43,3 @@ adjustedRandIndex(sData@clusters,cols)
 \author{
 Peijie Lin <p.lin@victorchang.edu.au>, Michael Troup
 }
-

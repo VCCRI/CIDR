@@ -10,12 +10,11 @@ Calculates the Adjusted Rand Index which meansures the accuracy of clustering wh
 \details{
 Imported from the package \emph{mclust}; see \code{adjustedRandIndex::mclust} help page for more details.
 }
-\author{
-Chris Fraley, Adrian Raftery, Luca Scrucca.
-}
 \references{
 Chris Fraley, Adrian E. Raftery, T. Brendan Murphy, and Luca Scrucca (2012) mclust Version 4 for R: Normal Mixture Modeling for Model-Based Clustering, Classification, and Density Estimation Technical Report No. 597, Department of Statistics, University of Washington
 
 Chris Fraley and Adrian E. Raftery (2002) Model-based Clustering, Discriminant Analysis and Density Estimation Journal of the American Statistical Association 97:611-631
 }
-
+\author{
+Chris Fraley, Adrian Raftery, Luca Scrucca.
+}

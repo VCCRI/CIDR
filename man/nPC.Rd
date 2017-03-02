@@ -21,4 +21,3 @@ determines the optimal number of principal coordinates (nPC) to be used in clust
 \examples{
 example(cidr)
 }
-

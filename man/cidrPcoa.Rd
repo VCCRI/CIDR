@@ -20,4 +20,3 @@ performs principal coordinates analysis on a dissimilarity matrix.
 This function is used internally in the method \code{scPCA};
 see the help page for \code{scPCA} for more details.
 }
-

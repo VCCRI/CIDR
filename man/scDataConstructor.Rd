@@ -37,4 +37,3 @@ sData@tags[1:5, 30:34]
 ## print part of the data matrix of the class - log tag per million
 sData@nData[1:5, 30:34]
 }
-

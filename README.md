@@ -10,7 +10,7 @@ Ultrafast and accurate clustering through imputation and dimensionality reductio
 
 Most existing dimensionality reduction and clustering packages for single-cell RNA-Seq (scRNA-Seq) data deal with dropouts by heavy modelling and computational machinery. Here we introduce *CIDR* (Clustering through Imputation and Dimensionality Reduction), an ultrafast algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the impact of dropouts in scRNA-Seq data in a principled manner.
 
-For more details about *CIDR* refer to the [preprint](http://biorxiv.org/content/early/2016/08/10/068775) on BioRxiv.
+For more details about *CIDR* refer to the [preprint](http://biorxiv.org/content/early/2017/01/26/068775) on BioRxiv.
 
 *CIDR* is maintained by Dr Paul Lin <p.lin@victorchang.edu.au>.
 
