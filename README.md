@@ -10,9 +10,9 @@ Ultrafast and accurate clustering through imputation and dimensionality reductio
 
 Most existing dimensionality reduction and clustering packages for single-cell RNA-Seq (scRNA-Seq) data deal with dropouts by heavy modelling and computational machinery. Here we introduce *CIDR* (Clustering through Imputation and Dimensionality Reduction), an ultrafast algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the impact of dropouts in scRNA-Seq data in a principled manner.
 
-For more details about *CIDR* refer to the [preprint](http://biorxiv.org/content/early/2017/01/26/068775) on BioRxiv.
+For more details about *CIDR*, refer to the [paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-017-1188-0): Peijie Lin, Michael Troup, Joshua W.K. Ho, CIDR: Ultrafast and accurate clustering through imputation for single-cell RNA-seq data. *Genome Biology* 2017 Mar 28;18(1):59.
 
-*CIDR* is maintained by Dr Paul Lin <p.lin@victorchang.edu.au>.
+*CIDR* is maintained by Dr Joshua Ho <j.ho@victorchang.edu.au>.
 
 Getting Started
 ---------------
@@ -81,20 +81,19 @@ example("cidr")
     #> cidr> sData <- determineDropoutCandidates(sData)
     #> 
     #> cidr> sData <- wThreshold(sData)
-
-![](README-unnamed-chunk-4-2.png)
-
     #> 
     #> cidr> sData <- scDissim(sData)
     #> 
     #> cidr> sData <- scPCA(sData)
 
-![](README-unnamed-chunk-4-3.png)
+![](README-unnamed-chunk-4-2.png)
 
+    #> 
+    #> cidr> sData <- nPC(sData)
     #> 
     #> cidr> nCluster(sData)
 
-![](README-unnamed-chunk-4-4.png)
+![](README-unnamed-chunk-4-3.png)
 
     #> 
     #> cidr> sData <- scCluster(sData)
@@ -103,21 +102,11 @@ example("cidr")
     #> cidr> ## while different plotting symbols denote the clusters output by cidr.
     #> cidr> plot(sData@PC[,c(1,2)], col=cols,
     #> cidr+      pch=sData@clusters, main="CIDR", xlab="PC1", ylab="PC2")
+
+![](README-unnamed-chunk-4-4.png)
+
     #> 
     #> cidr> ## Use Adjusted Rand Index to measure the accuracy of the clustering output by cidr.
-    #> cidr> adjustedRandIndex(sData@clusters,cols)
-    #> [1] 0.9203693
-    #> 
-    #> cidr> ## 0.79
-    #> cidr> ## Alter the number of PCs used in clustering.
-    #> cidr> sData <- scCluster(sData, nPC=2)
-    #> 
-    #> cidr> plot(sData@PC[,c(1,2)], col=cols,
-    #> cidr+      pch=sData@clusters,main="CIDR",xlab="PC1", ylab="PC2")
-
-![](README-unnamed-chunk-4-5.png)
-
-    #> 
     #> cidr> adjustedRandIndex(sData@clusters,cols)
     #> [1] 0.9203693
     #> 
@@ -169,4 +158,5 @@ install.packages("devtools")
 ## Click “Yes” in “Updating Loaded Packages”
 devtools::install_github("VCCRI/CIDR",force=TRUE)
 ```
-Some users might have installed an older version of RcppEigen. CIDR requires RcppEigen version >=0.3.2.9.0. Please re-install the latest version of this package if necessary.
+
+Some users might have installed an older version of RcppEigen. CIDR requires RcppEigen version &gt;=0.3.2.9.0. Please re-install the latest version of this package if necessary.

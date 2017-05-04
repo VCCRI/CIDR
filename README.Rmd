@@ -22,9 +22,10 @@ Most existing dimensionality reduction and clustering packages for single-cell R
 algorithm which uses a novel yet very simple ‘implicit imputation’ approach to alleviate the
 impact of dropouts in scRNA-Seq data in a principled manner.
 
-For more details about _CIDR_ refer to the [preprint](http://biorxiv.org/content/early/2017/01/26/068775) on BioRxiv.
+For more details about _CIDR_, refer to the [paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-017-1188-0): 
+Peijie Lin, Michael Troup, Joshua W.K. Ho, CIDR: Ultrafast and accurate clustering through imputation for single-cell RNA-seq data. _Genome Biology_ 2017 Mar 28;18(1):59.
 
-_CIDR_ is maintained by Dr Paul Lin p.lin@victorchang.edu.au.
+_CIDR_ is maintained by Dr Joshua Ho j.ho@victorchang.edu.au.
 
 ##Getting Started
 
