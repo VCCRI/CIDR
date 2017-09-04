@@ -29,3 +29,4 @@ this method is optional and only used if the user wants to alter the default num
 \examples{
 example(cidr)
 }
+

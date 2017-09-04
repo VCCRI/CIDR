@@ -42,3 +42,4 @@ is a dropout candidate; otherwise the value is \code{FALSE}.
 \examples{
 example(cidr)
 }
+

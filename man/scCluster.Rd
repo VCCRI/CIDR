@@ -33,3 +33,4 @@ performs heirarchical clustering on \emph{CIDR} principal coordinates.
 \examples{
 example(cidr)
 }
+

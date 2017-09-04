@@ -35,6 +35,11 @@ devtools::install_github("VCCRI/CIDR")
 ## Note that for some Windows platforms, you may be asked to re-install RTools
 ## - even though it may already have been installed.  Say yes if prompted.
 ## Your windows platform may require the specific version of RTools being suggested.
+##
+## For Mac platforms, ensure that the software "Xcode" and "Command Line Tools" are
+## installed, by issuing the following command from a terminal prompt:
+##  /usr/bin/clang --version
+##
 ```
 
 Examples
@@ -77,6 +82,8 @@ example("cidr")
     #> cidr> ## Use cidr to analyse the simulated dataset.
     #> cidr> ## The input for cidr should be a tag matrix.
     #> cidr> sData <- scDataConstructor(tags)
+    #> using raw
+    #> THIS IS A DEVELOPMENT VERSION OF CIDR
     #> 
     #> cidr> sData <- determineDropoutCandidates(sData)
     #> 

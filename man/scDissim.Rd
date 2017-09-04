@@ -31,3 +31,4 @@ computes the \emph{CIDR} dissimilarity matrix.
 \examples{
 example(cidr)
 }
+
