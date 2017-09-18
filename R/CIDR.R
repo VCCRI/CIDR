@@ -327,6 +327,7 @@ setGeneric("scPCA", function(object) {
 #' @name scPCA
 #'
 #' @param object an scData class object.
+#' @param pcplot if TRUE, a plot of the PC variance explained is shown
 #'
 #' @export
 #'
@@ -338,7 +339,7 @@ setGeneric("scPCA", function(object) {
 #'
 #' @examples
 #' example(cidr)
-setMethod("scPCA", "scData", function(object){
+setMethod("scPCA", "scData", function(object,pcplot=TRUE){
     y <- cidrPcoa(object@dissim)
     variation <- y$values
     ## store all eigenvalues - neg, 0, & pos
@@ -349,7 +350,7 @@ setMethod("scPCA", "scData", function(object){
     variation <- variation/sum(variation)
     object@variation <- variation
 
-    plot(object@variation, xlab="PC", ylab="Proportion", main="Proportion of Variation")
+    if(pcplot) plot(object@variation, xlab="PC", ylab="Proportion", main="Proportion of Variation")
     return(object)
 })
 
