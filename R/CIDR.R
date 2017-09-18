@@ -339,7 +339,7 @@ setGeneric("scPCA", function(object, plotPC=TRUE) {
 #'
 #' @examples
 #' example(cidr)
-setMethod("scPCA", "scData", function(object,pcplot){
+setMethod("scPCA", "scData", function(object,plotPC){
     y <- cidrPcoa(object@dissim)
     variation <- y$values
     ## store all eigenvalues - neg, 0, & pos
@@ -350,7 +350,7 @@ setMethod("scPCA", "scData", function(object,pcplot){
     variation <- variation/sum(variation)
     object@variation <- variation
 
-    if(pcplot) plot(object@variation, xlab="PC", ylab="Proportion", main="Proportion of Variation")
+    if(plotPC) plot(object@variation, xlab="PC", ylab="Proportion", main="Proportion of Variation")
     return(object)
 })
 
