@@ -18,7 +18,7 @@
 
 \item{alpha}{a cutoff quantile in the range [0,1]. Thresholds outside this will be adjusted to the quantile boundary.}
 
-\item{fast}{Boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N.}
+\item{fast}{Boolean; if \code{TRUE} (default - unless \code{tagType} is \code{cpm}), implements a fast version for datasets with a sample size greater than N. NOTE: set to \code{FALSE} if \code{tagType} is \code{cpm}.}
 
 \item{zerosOnly}{Boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.}
 

@@ -57,6 +57,7 @@ NULL
 ## class scData - single-cell RNA-Seq data object with attributes relevant to
 ## clustering through imputation and dimensionality reduction
 setClass("scData", representation(tags="matrix",
+                                  tagType="character",
                                   sampleSize="numeric",
                                   librarySizes="vector",
                                   nData="matrix",
@@ -85,12 +86,16 @@ setClass("scData", representation(tags="matrix",
 #' \code{scDataConstructor} creates a new scData class object from a tag table.
 #'
 #' @details
-#' creates an object in scData (single-cell RNA-Seq dataset) class.
+#' Creates an object in scData (single-cell RNA-Seq dataset) class.
 #' Attributes of the class include scalar, vector and matrix
-#' data types necessary for the \emph{CIDR} analysis - such as tag table, library
-#' sizes, dropout candidates, imputation weighting threshold. 
+#' data types necessary for the \emph{CIDR} analysis - such as tag table, 
+#' library  sizes, dropout candidates, imputation weighting threshold. The 
+#' tags can be  raw counts (default) or counts per million (cpm).  Raw counts 
+#' are preferrable as the individual library sizes, as determined by the raw 
+#' counts, are used to determine dropout candidates.  
 #'
-#' @param tags a matrix of tags where the rows crrespond to features (genes, transcripts, etc) and the columns correspond to cells.
+#' @param tags a matrix of tags where the rows correspond to features (genes, transcripts, etc) and the columns correspond to cells.
+#' @param tagType - \code{"raw"} for when tags are raw counts ; \code{"cpm"} when tags are counts per million ; default is \code{raw}.
 #' @export
 #' @return an scData class object.
 #' @examples
@@ -98,7 +103,8 @@ setClass("scData", representation(tags="matrix",
 #' N=3 ## 3 cell types
 #' k=50 ## 50 cells per cell type
 #' sData <- scSimulator(N=N, k=k)
-#' ## The input for cidr should be a tag matrix. 
+#' ## The input for cidr should be a tag matrix.
+#' ## The default tagType is "raw" - meaning raw counts.
 #' tags <- as.matrix(sData$tags)
 #' ## create a new scData object
 #' sData <- scDataConstructor(tags)
@@ -108,12 +114,37 @@ setClass("scData", representation(tags="matrix",
 #' sData@tags[1:5, 30:34]
 #' ## print part of the data matrix of the class - log tag per million
 #' sData@nData[1:5, 30:34]
-scDataConstructor <- function(tags){
+#' 
+#' ## Example on using tags that are counts per million (cpm)
+#' ## Note that we would only use cpm if we didn't have the raw counts.
+#' tags_cpm <- t(t(tags)/colSums(tags))*1000000
+#' ## create a new scData object, specifying the tagType parameter
+#' sData <- scDataConstructor(tags_cpm, tagType="cpm")
+#' ## print the first 5 library sizes
+#' ## Note that if only the cpm data is available, we do not know the 
+#' ## library sizes.  In this case CIDR sets all the library sizes to
+#' ## 1 million.
+#' sData@librarySizes[1:5]
+#' ## print a portion of the data matrix of the class - contains raw tags
+#' sData@tags[1:5, 30:34]
+#' ## print part of the data matrix of the class - log tag per million
+#' sData@nData[1:5, 30:34]
+scDataConstructor <- function(tags, tagType="raw"){
+    validTagTypes <- c("raw", "cpm")
+    if (!(tagType %in% validTagTypes)) {
+        stop("Invalid tagType parameter supplied: ", tagType, ".  Valid Tags: ", 
+             paste(validTagTypes, collapse=", ")) 
+    }        
     tags <- tags[rowSums(tags)>0,]
-    object <- new("scData", tags=tags)
+    object <- new("scData", tags=tags, tagType=tagType)
     object@sampleSize <- ncol(tags)
-    object@librarySizes <- colSums(tags)
-    object@nData <- log2(t(t(tags)/object@librarySizes)*1000000+object@priorTPM)
+    if (tagType=="cpm") {
+      object@librarySizes <- rep(1000000, object@sampleSize)
+      object@nData <- log2(tags+object@priorTPM)
+    } else {
+      object@librarySizes <- colSums(tags)
+      object@nData <- log2(t(t(tags)/object@librarySizes)*1000000+object@priorTPM)
+    }
     return(object)
 }
 
@@ -138,7 +169,7 @@ setGeneric("determineDropoutCandidates", function(object, min1=3, min2=8, N=2000
 #' @param min1,min2 technical parameters used in estimating the minimum point between the first two modes of the density curve of logTPM for each cell.
 #' @param alpha a cutoff quantile in the range [0,1]. Thresholds outside this will be adjusted to the quantile boundary.
 #' @param N number of cells to consider when determining the threshold value for dropout candidates; used in conjunction with the \code{fast} parameter.
-#' @param fast Boolean; if \code{TRUE} (default), implements a fast version for datasets with a sample size greater than N.
+#' @param fast Boolean; if \code{TRUE} (default - unless \code{tagType} is \code{cpm}), implements a fast version for datasets with a sample size greater than N. NOTE: set to \code{FALSE} if \code{tagType} is \code{cpm}.
 #' @param zerosOnly Boolean; if \code{TRUE}, only zeros are considered as dropout candidates; by default \code{FALSE}.
 #' @param bw_adjust bandwidth adjustment factor; \emph{CIDR} uses the default bandwidth selection method ‘nrd0’ in the kernel density estimation; see \code{stats::density} help page for more details. 
 #' @export
@@ -155,7 +186,8 @@ setMethod("determineDropoutCandidates", "scData", function(object, min1, min2, N
         object@dropoutCandidates <- (object@tags==0)
     } else {
         topLibraries <- 1:object@sampleSize
-        if(fast & (object@sampleSize>N)){
+        ## only use "fast" method if input is raw counts (not cpm)
+        if(fast & (object@sampleSize>N) & object@tagType=="raw"){
             topLibraries <- order(object@librarySizes,decreasing = TRUE)[1:N]
         } else {
             N <- object@sampleSize
@@ -170,7 +202,7 @@ setMethod("determineDropoutCandidates", "scData", function(object, min1, min2, N
             dfn <- density(object@nData[, topLibraries[i]], kernel="epanechnikov", n=1024, from=LT1[i], to=dfn_max, adjust=bw_adjust)
             dTs[i] <- dfn$x[which.min(dfn$y)]
         }
-        if(fast & (object@sampleSize>N)){
+        if(fast & (object@sampleSize>N) & object@tagType=="raw"){
             object@dThreshold <- rep(median(dTs),object@sampleSize)
         } else{
             limits <- quantile(dTs,c(alpha, 1-alpha))

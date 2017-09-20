@@ -4,10 +4,12 @@
 \alias{scDataConstructor}
 \title{scData Constructor}
 \usage{
-scDataConstructor(tags)
+scDataConstructor(tags, tagType = "raw")
 }
 \arguments{
-\item{tags}{a matrix of tags where the rows crrespond to features (genes, transcripts, etc) and the columns correspond to cells.}
+\item{tags}{a matrix of tags where the rows correspond to features (genes, transcripts, etc) and the columns correspond to cells.}
+
+\item{tagType}{- \code{"raw"} for when tags are raw counts ; \code{"cpm"} when tags are counts per million ; default is \code{raw}.}
 }
 \value{
 an scData class object.
@@ -16,21 +18,40 @@ an scData class object.
 \code{scDataConstructor} creates a new scData class object from a tag table.
 }
 \details{
-creates an object in scData (single-cell RNA-Seq dataset) class.
+Creates an object in scData (single-cell RNA-Seq dataset) class.
 Attributes of the class include scalar, vector and matrix
-data types necessary for the \emph{CIDR} analysis - such as tag table, library
-sizes, dropout candidates, imputation weighting threshold.
+data types necessary for the \emph{CIDR} analysis - such as tag table, 
+library  sizes, dropout candidates, imputation weighting threshold. The 
+tags can be  raw counts (default) or counts per million (cpm).  Raw counts 
+are preferrable as the individual library sizes, as determined by the raw 
+counts, are used to determine dropout candidates.
 }
 \examples{
 ## Generate simulated single-cell RNA-Seq tags.
 N=3 ## 3 cell types
 k=50 ## 50 cells per cell type
 sData <- scSimulator(N=N, k=k)
-## The input for cidr should be a tag matrix. 
+## The input for cidr should be a tag matrix.
+## The default tagType is "raw" - meaning raw counts.
 tags <- as.matrix(sData$tags)
 ## create a new scData object
 sData <- scDataConstructor(tags)
 ## print the first 5 library sizes
+sData@librarySizes[1:5]
+## print a portion of the data matrix of the class - contains raw tags
+sData@tags[1:5, 30:34]
+## print part of the data matrix of the class - log tag per million
+sData@nData[1:5, 30:34]
+
+## Example on using tags that are counts per million (cpm)
+## Note that we would only use cpm if we didn't have the raw counts.
+tags_cpm <- t(t(tags)/colSums(tags))*1000000
+## create a new scData object, specifying the tagType parameter
+sData <- scDataConstructor(tags_cpm, tagType="cpm")
+## print the first 5 library sizes
+## Note that if only the cpm data is available, we do not know the 
+## library sizes.  In this case CIDR sets all the library sizes to
+## 1 million.
 sData@librarySizes[1:5]
 ## print a portion of the data matrix of the class - contains raw tags
 sData@tags[1:5, 30:34]

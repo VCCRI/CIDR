@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // getEigenSpace
 List getEigenSpace(NumericMatrix Xs);
-RcppExport SEXP cidr_getEigenSpace(SEXP XsSEXP) {
+RcppExport SEXP _cidr_getEigenSpace(SEXP XsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // eigen_centre
 List eigen_centre(NumericMatrix Ms, NumericMatrix Ds);
-RcppExport SEXP cidr_eigen_centre(SEXP MsSEXP, SEXP DsSEXP) {
+RcppExport SEXP _cidr_eigen_centre(SEXP MsSEXP, SEXP DsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,7 +31,7 @@ END_RCPP
 }
 // cpp_dist
 NumericMatrix cpp_dist(NumericMatrix dist, IntegerMatrix truth, NumericMatrix counts, int ncol, double threshold);
-RcppExport SEXP cidr_cpp_dist(SEXP distSEXP, SEXP truthSEXP, SEXP countsSEXP, SEXP ncolSEXP, SEXP thresholdSEXP) {
+RcppExport SEXP _cidr_cpp_dist(SEXP distSEXP, SEXP truthSEXP, SEXP countsSEXP, SEXP ncolSEXP, SEXP thresholdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -46,7 +46,7 @@ END_RCPP
 }
 // cpp_dist_weighted
 NumericMatrix cpp_dist_weighted(NumericMatrix dist, IntegerMatrix truth, NumericMatrix counts, int ncol, double a, double b);
-RcppExport SEXP cidr_cpp_dist_weighted(SEXP distSEXP, SEXP truthSEXP, SEXP countsSEXP, SEXP ncolSEXP, SEXP aSEXP, SEXP bSEXP) {
+RcppExport SEXP _cidr_cpp_dist_weighted(SEXP distSEXP, SEXP truthSEXP, SEXP countsSEXP, SEXP ncolSEXP, SEXP aSEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -59,4 +59,17 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(cpp_dist_weighted(dist, truth, counts, ncol, a, b));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_cidr_getEigenSpace", (DL_FUNC) &_cidr_getEigenSpace, 1},
+    {"_cidr_eigen_centre", (DL_FUNC) &_cidr_eigen_centre, 2},
+    {"_cidr_cpp_dist", (DL_FUNC) &_cidr_cpp_dist, 5},
+    {"_cidr_cpp_dist_weighted", (DL_FUNC) &_cidr_cpp_dist_weighted, 6},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_cidr(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

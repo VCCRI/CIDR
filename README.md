@@ -82,8 +82,6 @@ example("cidr")
     #> cidr> ## Use cidr to analyse the simulated dataset.
     #> cidr> ## The input for cidr should be a tag matrix.
     #> cidr> sData <- scDataConstructor(tags)
-    #> using raw
-    #> THIS IS A DEVELOPMENT VERSION OF CIDR
     #> 
     #> cidr> sData <- determineDropoutCandidates(sData)
     #> 

@@ -2,18 +2,18 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 getEigenSpace <- function(Xs) {
-    .Call('cidr_getEigenSpace', PACKAGE = 'cidr', Xs)
+    .Call('_cidr_getEigenSpace', PACKAGE = 'cidr', Xs)
 }
 
 eigen_centre <- function(Ms, Ds) {
-    .Call('cidr_eigen_centre', PACKAGE = 'cidr', Ms, Ds)
+    .Call('_cidr_eigen_centre', PACKAGE = 'cidr', Ms, Ds)
 }
 
 cpp_dist <- function(dist, truth, counts, ncol, threshold) {
-    .Call('cidr_cpp_dist', PACKAGE = 'cidr', dist, truth, counts, ncol, threshold)
+    .Call('_cidr_cpp_dist', PACKAGE = 'cidr', dist, truth, counts, ncol, threshold)
 }
 
 cpp_dist_weighted <- function(dist, truth, counts, ncol, a, b) {
-    .Call('cidr_cpp_dist_weighted', PACKAGE = 'cidr', dist, truth, counts, ncol, a, b)
+    .Call('_cidr_cpp_dist_weighted', PACKAGE = 'cidr', dist, truth, counts, ncol, a, b)
 }
 
