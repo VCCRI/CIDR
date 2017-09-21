@@ -5,10 +5,12 @@
 \alias{scPCA}
 \title{Single-cell Principal Coordinates Analysis}
 \usage{
-\S4method{scPCA}{scData}(object)
+\S4method{scPCA}{scData}(object, plotPC = TRUE)
 }
 \arguments{
 \item{object}{an scData class object.}
+
+\item{plotPC}{Boolean; if \code{TRUE}, a plot of PC variance explained is produced.}
 }
 \value{
 an updated scData class object with the following attributes updated
